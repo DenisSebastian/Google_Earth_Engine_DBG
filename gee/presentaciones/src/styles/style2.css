@@ -1,0 +1,47 @@
+body {
+    /*color: #141417;
+    background: #d0cfc5;
+    */
+    background-image: url("cit.png");
+    background-position: 95% 5%;;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 15% 7%;
+    position: relative;
+
+}
+
+p{
+	text-align: justify;
+
+}
+li{
+	text-align: justify;
+}
+footer {
+    color: black; 
+    background: white;
+    position: fixed; top: 90%;
+    text-align:left; width:100%;
+}
+
+h2{
+	color:red;
+}
+
+figcaption{
+    font-size: 1px;
+}
+
+img{
+    display:block;
+    border:none;
+    position: center;
+}
+
+.subtitle{
+    color: red;
+}
+.author{
+    text-shadow: 3px 2px red;
+}
