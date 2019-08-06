@@ -516,7 +516,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 
 <section>
     <h1 class="title">Introducción Google Earth Engine</h1>
-  <h1 class="subtitle">Taller de Monitoreo Ambiental y simulación de inundaciones</h1>
+  <h1 class="subtitle">Taller de Monitoreo Ambiental y Simulación de Inundaciones</h1>
     <h2 class="author">Centro de Inteligencia Territorial - UAI</h2>
     <h3 class="date">02 de Agosto de 2019</h3>
 </section>
@@ -525,6 +525,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2></h2>
 <h3 id="contenidos-1">Contenidos</h3>
 <ul>
+<li class="fragment">Definición de Conceptos</li>
 <li class="fragment">¿Qué es Google Earth Engine?</li>
 <li class="fragment">Interface GEE</li>
 <li class="fragment">Primeros Pasos con GEE</li>
@@ -535,16 +536,43 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li class="fragment">Índices Normalizados: NDWI</li>
 <li class="fragment">Calculos sobre objetos Espaciales</li>
 <li class="fragment">Clasificación Supervisada</li>
-<li class="fragment">Exportar Resultados</li>
-<li class="fragment">Aplicaciones webs</li>
+<li class="fragment">Exportar Resultados y Aplicaciones webs</li>
 </ul>
 </section></section>
-<section><section id="que-es-google-earth-engine" class="title-slide slide level1 bottom white" data-background="src/images/l8_vilankulos-1080.jpg"><h1>¿Qué es Google Earth Engine?</h1></section><section id="section-1" class="slide level2">
+<section><section id="definicion-de-conceptos" class="title-slide slide level1 bottom white" data-background="src/images/satelites.jpg"><h1>Definición de Conceptos</h1></section><section id="section-1" class="slide level2">
+<h2></h2>
+<h4 id="teledeteccion">Teledetección</h4>
+<p>Es una disciplina científica que integra un amplio conjunto de conocimientos y tecnologías para la observación, el análisis y la interpretación de fenómenos espaciales en distintas escalas.</p>
+<p>El principio básico se basa en que todos los cuerpos emiten radiación electromagnética, el tipo y la cantidad depende principalmente de la temperatura del cuerpo.</p>
+<p>El principal emisor de radiación es el Sol, cuyo reflejo en la superficie y atmósfera terrestre nos permite ver y analizar los objetos a nuestro alrededor.</p>
+</section><section id="section-2" class="slide level2">
+<h2></h2>
+<h4 id="especto-electomagnetico">Especto Electomagnético</h4>
+<p>Es un conjunto de frecuencias o longitudes de onda en los que se organiza la radiación electromagnética. Abarca las radiaciones entre los rayos gamma y las ondas de radio.</p>
+<p><img src="src/images/Esp_electr.jpg" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section><section id="section-3" class="slide level2">
+<h2></h2>
+<h4 id="satelites">Satélites:</h4>
+<p>Un satélite es una plataforma que describe una trayectoria definida alrededor de la Tierra denominada orbita. Existen dos tipos de satélites: geoestacionarios y heliosíncronos.</p>
+<ul>
+<li class="fragment">Geostacionarios: Sobre la línea ecuatorial, a 36.000 km de la Tierra. Comunicaciones y meteorología.</li>
+<li class="fragment">Heliosíncronos: Orbitas circulares y polares. Captan imágenes con regularidad sobre un mismo punto o escena.</li>
+</ul>
+</section><section id="section-4" class="slide level2">
+<h2></h2>
+<h4 id="sensores">Sensores</h4>
+<p>Un sensor es un instrumento a bordo de una plataforma capaz de adquirir remotamente información de diferentes regiones del espectro. Cada una de estas regiones se denomina canal o banda espectral. Existen dos tipos de sensores: activos y pasivos.</p>
+<ul>
+<li class="fragment">Sensores activos: generan su propia radiación y la reciben reflejada (Radar y LiDAR).</li>
+<li class="fragment">Sensores pasivos: reciben la radiación emitida o reflejada por la Tierra.</li>
+</ul>
+</section></section>
+<section><section id="que-es-google-earth-engine" class="title-slide slide level1 bottom white" data-background="src/images/l8_vilankulos-1080.jpg"><h1>¿Qué es Google Earth Engine?</h1></section><section id="section-5" class="slide level2">
 <h2></h2>
 <h3 id="que-es-google-earth-engine-gee">¿Qué es Google Earth Engine (GEE)?</h3>
 <p>Plataforma de procesamiento geoespacial basado en la nube, de escala global orientada al data análisis ambiental.</p>
 <p><img src="src/images/3_gee.PNG" style="display:block; border:none; margin:auto; width:50%"></img></p>
-</section><section id="section-2" class="slide level2">
+</section><section id="section-6" class="slide level2">
 <h2></h2>
 <h3 id="componentes-principales">Componentes Principales</h3>
 <ul>
@@ -554,13 +582,13 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li class="fragment"><strong>Code Editor</strong>: An online Integrated Development Environment (IDE) for rapid prototyping and visualization of complex spatial analyses using the Javascript API. Explore the Code Editor docs.</li>
 </ul>
 </section></section>
-<section><section id="interface-gee" class="title-slide slide level1 left gray" data-background="src/images/tools_laptop.jpg"><h1>Interface GEE</h1></section><section id="section-3" class="slide level2">
+<section><section id="interface-gee" class="title-slide slide level1 left gray" data-background="src/images/tools_laptop.jpg"><h1>Interface GEE</h1></section><section id="section-7" class="slide level2">
 <h2></h2>
 <p><img src="src/images/Code_editor.png" style="display:block; border:none; margin:auto; width:120%"></img> <a href="https://code.earthengine.google.com/" class="uri">https://code.earthengine.google.com/</a></p>
-</section><section id="section-4" class="slide level2">
+</section><section id="section-8" class="slide level2">
 <h2></h2>
 <p><img src="src/images/Code_editor_diagram.png" style="display:block; border:none; margin:auto; width:120%"></img></p>
-</section><section id="section-5" class="slide level2" data-background="src/images/solution_earth-1080.jpg">
+</section><section id="section-9" class="slide level2" data-background="src/images/solution_earth-1080.jpg">
 <h2></h2>
 <p>Enlaces de Interés (Oficial):</p>
 <ul>
@@ -572,7 +600,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li class="fragment"><a href="https://earthengine.google.com/case_studies/">Casos de Estudio</a></li>
 </ul>
 </section></section>
-<section><section id="primeros-pasos-con-gee" class="title-slide slide level1 bottom gray" data-background="src/images/topo_datasets-1080.jpg"><h1>Primeros Pasos con GEE</h1></section><section id="section-6" class="slide level2">
+<section><section id="primeros-pasos-con-gee" class="title-slide slide level1 bottom gray" data-background="src/images/topo_datasets-1080.jpg"><h1>Primeros Pasos con GEE</h1></section><section id="section-10" class="slide level2">
 <h2></h2>
 <p>Definición de variables</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">var variable =<span class="st"> </span><span class="dv">1</span></a>
@@ -589,7 +617,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb1-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="kw">print</span>(dictionary.b)</a>
 <a class="sourceLine" id="cb1-14" data-line-number="14"><span class="kw">print</span>(number, string, list, dictionary)</a></code></pre></div>
-</section><section id="section-7" class="slide level2">
+</section><section id="section-11" class="slide level2">
 <h2></h2>
 <p>Map and Reduce</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="op">/</span><span class="er">*</span><span class="st"> </span></a>
@@ -610,7 +638,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb2-16" data-line-number="16"><span class="kw">print</span>(<span class="kw">dates.map</span>(DayOfYear)) <span class="op">/</span><span class="er">/</span>Lista de números día  año</a>
 <a class="sourceLine" id="cb2-17" data-line-number="17"><span class="kw">print</span>(<span class="kw">dates.map</span>(DayOfYear)<span class="kw">.reduce</span>(<span class="kw">ee.Reducer.mean</span>())) </a></code></pre></div>
 </section></section>
-<section><section id="acceso-a-productos-satelitales-dem" class="title-slide slide level1 bottom white" data-background="src/images/res_dem30.jpg" data-opacity="0.1"><h1>Acceso a Productos Satelitales: DEM</h1></section><section id="section-8" class="slide level2">
+<section><section id="acceso-a-productos-satelitales-dem" class="title-slide slide level1 bottom white" data-background="src/images/res_dem30.jpg" data-opacity="0.1"><h1>Acceso a Productos Satelitales: DEM</h1></section><section id="section-12" class="slide level2">
 <h2></h2>
 <p><a href="https://developers.google.com/earth-engine/datasets/catalog/USGS_SRTMGL1_003">SRTM Digital Elevation Data 30m</a></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">var image =<span class="st"> </span><span class="kw">ee.Image</span>(<span class="st">&quot;USGS/SRTMGL1_003&quot;</span>)</a>
@@ -623,11 +651,11 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="kw">Map.addLayer</span>(slope, {min<span class="op">:</span><span class="st"> </span><span class="dv">0</span>, max<span class="op">:</span><span class="st"> </span><span class="dv">100</span>, </a>
 <a class="sourceLine" id="cb3-9" data-line-number="9">  palette<span class="op">:</span>[<span class="st">&quot;#5A606C&quot;</span>, <span class="st">&quot;#DEDFE1&quot;</span>]}, </a>
 <a class="sourceLine" id="cb3-10" data-line-number="10">  <span class="st">&#39;slope&#39;</span>);</a></code></pre></div>
-</section><section id="section-9" class="slide level2">
+</section><section id="section-13" class="slide level2">
 <h2></h2>
 <p><img src="src/images/res_dem302.JPG" style="display:block; border:none; margin:auto; width:120%"></img></p>
 </section></section>
-<section><section id="acceso-a-productos-satelitales-landsat-8" class="title-slide slide level1 bottom white" data-background="src/images/landsat8_RGB_stgo.jpg" data-opacity="0.5"><h1>Acceso a Productos Satelitales: LANDSAT 8</h1></section><section id="section-10" class="slide level2">
+<section><section id="acceso-a-productos-satelitales-landsat-8" class="title-slide slide level1 bottom white" data-background="src/images/landsat8_RGB_stgo.jpg" data-opacity="0.5"><h1>Acceso a Productos Satelitales: LANDSAT 8</h1></section><section id="section-14" class="slide level2">
 <h2></h2>
 <p><a href="https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C01_T1_TOA">USGS Landsat 8 Collection TOA Reflectance</a></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
@@ -637,10 +665,10 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb4-5" data-line-number="5">  </a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">Map.addLayer</span>(collection,{min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="fl">0.3</span>, <span class="op">/</span><span class="er">/</span>reflectancia <span class="fl">0.3</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7">    bands<span class="op">:</span>[<span class="st">&quot;B4&quot;</span>, <span class="st">&quot;B3&quot;</span>, <span class="st">&quot;B2&quot;</span>]}) <span class="op">/</span><span class="er">/</span>las primeras <span class="dv">3</span> bandas</a></code></pre></div>
-</section><section id="section-11" class="slide level2">
+</section><section id="section-15" class="slide level2">
 <h2></h2>
 <p><img src="src/images/rgb_L8_1_cloud.JPG" style="display:block; border:none; margin:auto; width:120%"></img></p>
-</section><section id="section-12" class="slide level2">
+</section><section id="section-16" class="slide level2">
 <h2></h2>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="kw">.filterDate</span>(<span class="st">&#39;2019-01-01&#39;</span>, <span class="st">&#39;2019-06-01&#39;</span>)</a>
@@ -653,11 +681,11 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb5-9" data-line-number="9">var composite =<span class="st"> </span><span class="kw">collection.median</span>()</a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="kw">Map.addLayer</span>(composite,{min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="fl">0.3</span>, </a>
 <a class="sourceLine" id="cb5-11" data-line-number="11">    bands<span class="op">:</span>[<span class="st">&quot;B4&quot;</span>, <span class="st">&quot;B3&quot;</span>, <span class="st">&quot;B2&quot;</span>]}) </a></code></pre></div>
-</section><section id="section-13" class="slide level2">
+</section><section id="section-17" class="slide level2">
 <h2></h2>
 <p><img src="src/images/rgb_L8_median.JPG" style="display:block; border:none; margin:auto; width:120%"></img></p>
 </section></section>
-<section><section id="indices-normalizados-ndvi" class="title-slide slide level1 center black" data-background="src/images/NDVI_resumen_2018.jpg"><h1>Índices Normalizados: NDVI</h1></section><section id="section-14" class="slide level2">
+<section><section id="indices-normalizados-ndvi" class="title-slide slide level1 center black" data-background="src/images/NDVI_resumen_2018.jpg"><h1>Índices Normalizados: NDVI</h1></section><section id="section-18" class="slide level2">
 <h2></h2>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="kw">.filterDate</span>(<span class="st">&#39;2019-01-01&#39;</span>, <span class="st">&#39;2019-03-01&#39;</span>)</a>
@@ -671,7 +699,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb6-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb6-11" data-line-number="11"><span class="kw">print</span>(nir <span class="op">+</span><span class="st"> </span>red) <span class="op">/</span><span class="er">/</span><span class="st"> </span>Error</a>
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="op">/</span><span class="er">/</span><span class="st"> </span><span class="op">+</span><span class="st"> </span>es sumar dos objetos en <span class="kw">proxis</span> (instrucciones) no imagenes en el servidor</a></code></pre></div>
-</section><section id="section-15" class="slide level2">
+</section><section id="section-19" class="slide level2">
 <h2></h2>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>ndvi =<span class="st"> </span>(nir <span class="op">-</span><span class="st"> </span>red) <span class="op">/</span><span class="st"> </span>(nir <span class="op">+</span><span class="st"> </span>red)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">var ndvi =<span class="st"> </span><span class="kw">composite.expression</span>(<span class="st">&quot;(nir - red) / (nir + red)&quot;</span>,{</a>
@@ -682,7 +710,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb7-7" data-line-number="7"><span class="kw">Map.addLayer</span>(ndvi,{min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="dv">1</span>, </a>
 <a class="sourceLine" id="cb7-8" data-line-number="8">  palette<span class="op">:</span>[<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>]} ) </a></code></pre></div>
 <p><img src="src/images/NDVI_1.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
-</section><section id="section-16" class="slide level2">
+</section><section id="section-20" class="slide level2">
 <h2></h2>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>NDVI Mediante Función (mejora performance)</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="cf">function</span>  <span class="kw">addNDVI</span>(image){</a>
@@ -695,21 +723,21 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb8-9" data-line-number="9">var ndvi =<span class="st"> </span><span class="kw">addNDVI</span>(composite)</a>
 <a class="sourceLine" id="cb8-10" data-line-number="10"><span class="kw">Map.addLayer</span>(ndvi,{min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="dv">1</span>, palette<span class="op">:</span>[<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>]} )</a></code></pre></div>
 <p><img src="src/images/NDVI_1.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
-</section><section id="section-17" class="slide level2">
+</section><section id="section-21" class="slide level2">
 <h2></h2>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Mapeo de la función en la collection </a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">var ndviCollection =<span class="st"> </span><span class="kw">collection.map</span>(addNDVI)</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">Map.addLayer</span>(ndviCollection,{min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="dv">1</span>, </a>
 <a class="sourceLine" id="cb9-4" data-line-number="4">  palette<span class="op">:</span>[<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>]} ) </a></code></pre></div>
 <p><img src="src/images/NDVI_2_collect.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
-</section><section id="section-18" class="slide level2">
+</section><section id="section-22" class="slide level2">
 <h2></h2>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">var ndviCollection =<span class="st"> </span><span class="kw">collection.map</span>(addNDVI)</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Visulización collection <span class="kw">max</span>() (reductores), toma el valor máximo todo el año.</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">Map.addLayer</span>(<span class="kw">ndviCollection.max</span>(),{ <span class="op">/</span><span class="er">/</span>toma los valores maximo de todas las imagenes</a>
 <a class="sourceLine" id="cb10-4" data-line-number="4">  palette<span class="op">:</span>[<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>]} )</a></code></pre></div>
 <p><img src="src/images/NDVI_3_collect_max.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
-</section><section id="section-19" class="slide level2">
+</section><section id="section-23" class="slide level2">
 <h2></h2>
 <p>NDVI de año 2018</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">var result =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
@@ -724,10 +752,10 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb11-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb11-11" data-line-number="11"><span class="kw">Map.setCenter</span>(<span class="op">-</span><span class="fl">70.6728</span>, <span class="fl">-33.4463</span>, <span class="dv">10</span>);</a>
 <a class="sourceLine" id="cb11-12" data-line-number="12"><span class="kw">Map.addLayer</span>(result,{palette<span class="op">:</span>[<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>]} ) </a></code></pre></div>
-</section><section id="section-20" class="slide level2 center black" data-background="src/images/NDVI_resumen_2018.jpg">
+</section><section id="section-24" class="slide level2 center black" data-background="src/images/NDVI_resumen_2018.jpg">
 <h2></h2>
 </section></section>
-<section><section id="indices-normalizados-ndwi" class="title-slide slide level1 center white" data-background="src/images/NDWV_collect_max.jpg"><h1>Índices Normalizados: NDWI</h1></section><section id="section-21" class="slide level2">
+<section><section id="indices-normalizados-ndwi" class="title-slide slide level1 center white" data-background="src/images/NDWV_collect_max.jpg"><h1>Índices Normalizados: NDWI</h1></section><section id="section-25" class="slide level2">
 <h2></h2>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">  <span class="kw">.filterDate</span>(<span class="st">&#39;2019-01-01&#39;</span>, <span class="st">&#39;2019-03-01&#39;</span>)</a>
@@ -741,7 +769,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb12-10" data-line-number="10"><span class="kw">Map.setCenter</span>(<span class="op">-</span><span class="fl">72.4975</span>, <span class="fl">-41.1051</span>, <span class="dv">10</span>);</a>
 <a class="sourceLine" id="cb12-11" data-line-number="11"><span class="kw">Map.addLayer</span>(ndwi,{palette<span class="op">:</span>[<span class="st">&quot;#25b418&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;black&quot;</span>]} ) </a></code></pre></div>
 <p><img src="src/images/NDWI_1_compsite.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
-</section><section id="section-22" class="slide level2">
+</section><section id="section-26" class="slide level2">
 <h2></h2>
 <p>Función NDWI</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
@@ -760,10 +788,10 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb13-14" data-line-number="14"><span class="kw">Map.setCenter</span>(<span class="op">-</span><span class="fl">72.4975</span>, <span class="fl">-41.1051</span>, <span class="dv">10</span>);</a>
 <a class="sourceLine" id="cb13-15" data-line-number="15"><span class="kw">Map.addLayer</span>(<span class="kw">ndwiCollection.max</span>(),{</a>
 <a class="sourceLine" id="cb13-16" data-line-number="16">  palette<span class="op">:</span>[<span class="st">&quot;#25b418&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;black&quot;</span>]} ) </a></code></pre></div>
-</section><section id="section-23" class="slide level2 center black" data-background="src/images/NDWV_collect_max.jpg">
+</section><section id="section-27" class="slide level2 center black" data-background="src/images/NDWV_collect_max.jpg">
 <h2></h2>
 </section></section>
-<section><section id="cloud-masking" class="title-slide slide level1 center grey" data-background="src/images/cloud_mask_VALD.jpg"><h1>Cloud Masking</h1></section><section id="section-24" class="slide level2">
+<section><section id="cloud-masking" class="title-slide slide level1 center grey" data-background="src/images/cloud_mask_VALD.jpg"><h1>Cloud Masking</h1></section><section id="section-28" class="slide level2">
 <h2></h2>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2">  <span class="kw">.filterDate</span>(<span class="st">&#39;2019-01-01&#39;</span>, <span class="st">&#39;2019-03-01&#39;</span>)</a>
@@ -772,7 +800,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb14-5" data-line-number="5"><span class="kw">Map.addLayer</span>(collection,{min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="fl">0.3</span>, <span class="op">/</span><span class="er">/</span>reflectancia <span class="fl">0.3</span></a>
 <a class="sourceLine" id="cb14-6" data-line-number="6">    bands<span class="op">:</span>[<span class="st">&quot;B4&quot;</span>, <span class="st">&quot;B3&quot;</span>, <span class="st">&quot;B2&quot;</span>]}) <span class="op">/</span><span class="er">/</span>las primeras <span class="dv">3</span> bandas</a></code></pre></div>
 <p><img src="src/images/VALD_RBG_1.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
-</section><section id="section-25" class="slide level2">
+</section><section id="section-29" class="slide level2">
 <h2></h2>
 <p>Cloud Masking mediante función</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Function para enmascarar nubes utilizando la Banda Quiality Assurance Landsat <span class="fl">8.</span></a>
@@ -789,10 +817,10 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb15-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb15-13" data-line-number="13"><span class="kw">Map.addLayer</span>(composite, {bands<span class="op">:</span><span class="st"> </span>[<span class="st">&#39;B4&#39;</span>, <span class="st">&#39;B3&#39;</span>, <span class="st">&#39;B2&#39;</span>], max<span class="op">:</span><span class="st"> </span><span class="fl">0.3</span>});</a>
 <a class="sourceLine" id="cb15-14" data-line-number="14"><span class="kw">Map.setCenter</span>(<span class="op">-</span><span class="fl">73.0683</span>, <span class="fl">-39.8057</span>, <span class="dv">10</span>); <span class="op">/</span><span class="er">/</span>Valdivia</a></code></pre></div>
-</section><section id="section-26" class="slide level2 center black" data-background="src/images/cloud_mask_VALD_clean.jpg">
+</section><section id="section-30" class="slide level2 center black" data-background="src/images/cloud_mask_VALD_clean.jpg">
 <h2></h2>
 </section></section>
-<section><section id="calculos-sobre-objetos-espaciales" class="title-slide slide level1 center white" data-background="src/images/buffer_stgo.jpg"><h1>Cálculos sobre objetos Espaciales</h1></section><section id="section-27" class="slide level2">
+<section><section id="calculos-sobre-objetos-espaciales" class="title-slide slide level1 center white" data-background="src/images/buffer_stgo.jpg"><h1>Cálculos sobre objetos Espaciales</h1></section><section id="section-31" class="slide level2">
 <h2></h2>
 <p>Buffer sobre NDVI</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
@@ -815,9 +843,9 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb16-18" data-line-number="18">var punto_stgo =<span class="st"> </span><span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">70.6673068359375</span>, <span class="fl">-33.46577773512672</span>]);</a>
 <a class="sourceLine" id="cb16-19" data-line-number="19">var roi =<span class="st"> </span><span class="kw">punto_stgo.buffer</span>(<span class="dv">20000</span>)</a>
 <a class="sourceLine" id="cb16-20" data-line-number="20"><span class="er">)</span></a></code></pre></div>
-</section><section id="section-28" class="slide level2 center black" data-background="src/images/buffer_stgo.jpg">
+</section><section id="section-32" class="slide level2 center black" data-background="src/images/buffer_stgo.jpg">
 <h2></h2>
-</section><section id="section-29" class="slide level2">
+</section><section id="section-33" class="slide level2">
 <h2></h2>
 <p>Crear Objeto de Vegetación Alta con valor NDVI sobre 0.6</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Vegetación Alta <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.6</span> </a>
@@ -839,10 +867,10 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb17-17" data-line-number="17"><span class="op">/</span><span class="er">/</span>B5<span class="op">:</span><span class="st"> </span><span class="fl">58922585.27239415</span></a>
 <a class="sourceLine" id="cb17-18" data-line-number="18"><span class="kw">print</span>(<span class="kw">ee.Number</span>(<span class="kw">area.get</span>(<span class="st">&#39;ndvi&#39;</span>))<span class="kw">.divide</span>(<span class="dv">1000000</span>))</a>
 <a class="sourceLine" id="cb17-19" data-line-number="19"><span class="op">/</span><span class="er">/</span><span class="fl">58.92258527239415</span></a></code></pre></div>
-</section><section id="section-30" class="slide level2 center white" data-background="src/images/ndvi_0.6_buffer.jpg">
+</section><section id="section-34" class="slide level2 center white" data-background="src/images/ndvi_0.6_buffer.jpg">
 <h2></h2>
 </section></section>
-<section><section id="clasificacion-supervisada" class="title-slide slide level1 center black" data-background="src/images/class_sup2.png"><h1>Clasificación Supervisada</h1></section><section id="section-31" class="slide level2">
+<section><section id="clasificacion-supervisada" class="title-slide slide level1 center black" data-background="src/images/class_sup2.png"><h1>Clasificación Supervisada</h1></section><section id="section-35" class="slide level2">
 <h2></h2>
 <p>Función para Cloud Masking con QA Band</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="cf">function</span> <span class="kw">maskL8sr</span>(image) {</a>
@@ -861,7 +889,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb18-14" data-line-number="14">      <span class="kw">.select</span>(<span class="st">&quot;B[0-9]*&quot;</span>) <span class="op">/</span><span class="er">/</span><span class="st"> </span>NO CONSIDERAR BANDA QUE COMIENCE QA</a>
 <a class="sourceLine" id="cb18-15" data-line-number="15">      <span class="kw">.copyProperties</span>(image, [<span class="st">&quot;system:time_start&quot;</span>]);</a>
 <a class="sourceLine" id="cb18-16" data-line-number="16">}</a></code></pre></div>
-</section><section id="section-32" class="slide level2">
+</section><section id="section-36" class="slide level2">
 <h2></h2>
 <p>Definir producto y fecha de estudio</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&#39;LANDSAT/LC08/C01/T1_SR&#39;</span>)</a>
@@ -872,9 +900,9 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb19-6" data-line-number="6"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Display the results.</a>
 <a class="sourceLine" id="cb19-7" data-line-number="7"><span class="kw">Map.addLayer</span>(collection, {min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="fl">0.3</span>, </a>
 <a class="sourceLine" id="cb19-8" data-line-number="8">  bands<span class="op">:</span><span class="st"> </span>[<span class="st">&#39;B4&#39;</span>, <span class="st">&#39;B3&#39;</span>, <span class="st">&#39;B2&#39;</span>]});</a></code></pre></div>
-</section><section id="section-33" class="slide level2 center white" data-background="src/images/cloud_QA.png">
+</section><section id="section-37" class="slide level2 center white" data-background="src/images/cloud_QA.png">
 <h2></h2>
-</section><section id="section-34" class="slide level2">
+</section><section id="section-38" class="slide level2">
 <h2></h2>
 <p>Reduce por variancia (mejora resultados de clasificación)</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">var reducer =<span class="st"> </span><span class="kw">ee.Reducer.percentile</span>([<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">90</span>])</a>
@@ -882,14 +910,14 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb20-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb20-4" data-line-number="4">var composite =<span class="st"> </span><span class="kw">collection.reduce</span>(reducer);</a>
 <a class="sourceLine" id="cb20-5" data-line-number="5"><span class="kw">print</span>(composite)</a></code></pre></div>
-</section><section id="section-35" class="slide level2">
+</section><section id="section-39" class="slide level2">
 <h2></h2>
 <p>Se puntos o poligonos por cada clase:</p>
 <p><img src="src/images/add_geometry.png" style="display:block; border:none; margin:auto"></img></p>
-</section><section id="section-36" class="slide level2">
+</section><section id="section-40" class="slide level2">
 <h2></h2>
 <p><img src="src/images/Puntos_class.png" style="display:block; border:none; margin:auto"></img></p>
-</section><section id="section-37" class="slide level2">
+</section><section id="section-41" class="slide level2">
 <h2></h2>
 <p>Crear Objeto Train y Validación</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">var points =<span class="st"> </span><span class="kw">urban.merge</span>(nubes)<span class="kw">.merge</span>(water)<span class="kw">.merge</span>(plantation)<span class="kw">.merge</span>(forest)<span class="kw">.merge</span>(hills)</a>
@@ -905,7 +933,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb21-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb21-12" data-line-number="12"><span class="kw">print</span>(<span class="kw">training.size</span>())</a>
 <a class="sourceLine" id="cb21-13" data-line-number="13"><span class="kw">print</span>(<span class="kw">training.reduceColumns</span>(<span class="kw">ee.Reducer.frequencyHistogram</span>(), [<span class="st">&quot;class&quot;</span>]))</a></code></pre></div>
-</section><section id="section-38" class="slide level2">
+</section><section id="section-42" class="slide level2">
 <h2></h2>
 <p>Clasificador con Random Forest</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">var classifier =<span class="st"> </span><span class="kw">ee.Classifier.randomForest</span>(<span class="dv">20</span>)<span class="kw">.train</span>(training, <span class="st">&quot;class&quot;</span>,</a>
@@ -923,12 +951,12 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb22-13" data-line-number="13">  <span class="kw">.accuracy</span>()</a>
 <a class="sourceLine" id="cb22-14" data-line-number="14">  </a>
 <a class="sourceLine" id="cb22-15" data-line-number="15"><span class="op">/</span><span class="er">/</span><span class="kw">print</span>(accuracy)</a></code></pre></div>
-</section><section id="section-39" class="slide level2">
+</section><section id="section-43" class="slide level2">
 <h2></h2>
 <p>Resultados</p>
 <p><img src="src/images/class_sup2.png" style="display:block; border:none; margin:auto, width=60%"></img></p>
 </section></section>
-<section><section id="exportar-resultados" class="title-slide slide level1"><h1>Exportar Resultados</h1></section><section id="section-40" class="slide level2">
+<section><section id="exportar-resultados" class="title-slide slide level1"><h1>Exportar Resultados</h1></section><section id="section-44" class="slide level2">
 <h2></h2>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">Export.image.toDrive</span>({</a>
 <a class="sourceLine" id="cb23-2" data-line-number="2">  image<span class="op">:</span><span class="st"> </span>maxNDVI,</a>
@@ -939,7 +967,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb23-7" data-line-number="7">})</a></code></pre></div>
 <p><img src="src/images/buffer_stgo.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
 </section></section>
-<section><section id="aplicaciones-webs" class="title-slide slide level1 center white" data-background="src/images/app_gee_2.jpg"><h1>Aplicaciones webs</h1></section><section id="section-41" class="slide level2">
+<section><section id="aplicaciones-webs" class="title-slide slide level1 center white" data-background="src/images/app_gee_2.jpg"><h1>Aplicaciones webs</h1></section><section id="section-45" class="slide level2">
 <h2></h2>
 <p>Crear composición y variables de para visualización</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">var geometry =<span class="st"> </span><span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">70.6728</span>, <span class="fl">-33.4463</span>]);</a>
@@ -959,7 +987,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb24-15" data-line-number="15">  <span class="st">&quot;Thermal&quot;</span><span class="op">:</span><span class="st"> </span>{bands<span class="op">:</span><span class="st"> </span>[<span class="st">&quot;B10&quot;</span>], min<span class="op">:</span><span class="st"> </span><span class="dv">280</span>, max<span class="op">:</span><span class="st"> </span><span class="dv">310</span>, </a>
 <a class="sourceLine" id="cb24-16" data-line-number="16">    palette<span class="op">:</span><span class="st"> </span>[<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;yellow&quot;</span>]}</a>
 <a class="sourceLine" id="cb24-17" data-line-number="17">}</a></code></pre></div>
-</section><section id="section-42" class="slide level2">
+</section><section id="section-46" class="slide level2">
 <h2></h2>
 <p>Crear Loop para unir mapas y añadir parámetros de visualización</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">var maps =<span class="st"> </span>[];</a>
@@ -974,13 +1002,13 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb25-10" data-line-number="10">var linker =<span class="st"> </span><span class="kw">ui.Map.Linker</span>(maps);</a>
 <a class="sourceLine" id="cb25-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb25-12" data-line-number="12">maps[<span class="dv">0</span>]<span class="kw">.centerObject</span>(geometry, <span class="dv">10</span>)</a></code></pre></div>
-</section><section id="section-43" class="slide level2 center black" data-background="src/images/app_gee_1.jpg">
+</section><section id="section-47" class="slide level2 center black" data-background="src/images/app_gee_1.jpg">
 <h2></h2>
-</section><section id="section-44" class="slide level2">
+</section><section id="section-48" class="slide level2">
 <h2></h2>
 <p><img data-src="src/images/app-management-icon.png" /></p>
 <p><img data-src="src/images/create-new-app.png" /></p>
-</section><section id="section-45" class="slide level2">
+</section><section id="section-49" class="slide level2">
 <h2></h2>
 <p><img src="src/images/publish-app-dialog.png" style="display:block; border:none; margin:auto; width:40%"></img></p>
 <p><!-- Autor: Denis Berroeta Gonzalez CIT-UAI 2019--></p>
