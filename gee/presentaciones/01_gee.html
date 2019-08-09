@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Centro de Inteligencia Territorial - UAI" />
+  <title>Clase 2: Google Earth Engine</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="01_gee_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="01_gee_files/reveal.js-3.3.0.1/css/theme/white.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="src/styles/style.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Clase 2: Google Earth Engine</h1>
+  <h1 class="subtitle">Taller de Monitoreo Ambiental y simulación de inundaciones</h1>
+    <h2 class="author">Centro de Inteligencia Territorial - UAI</h2>
+    <h3 class="date">09 de Agosto de 2019</h3>
+</section>
+
+<section><section id="google-earth-engine-contenidos" class="title-slide slide level1 bottom white" data-background="src/images/l8_vilankulos-1080.jpg"><h1>Google Earth Engine: Contenidos</h1></section><section id="section" class="slide level2">
+<h2></h2>
+<h4 id="contenidos">Contenidos</h4>
+<ul>
+<li class="fragment">Índices Normalizados NDVI</li>
+<li class="fragment">Índices Normalizados NDWI</li>
+<li class="fragment">Índices Normalizados NDSI</li>
+<li class="fragment">Pendientes y orientación de laderas</li>
+<li class="fragment">Efecto de Cortina</li>
+<li class="fragment">Timelapse Modis</li>
+<li class="fragment">Frames y Animaciones</li>
+<li class="fragment">Aplicaciones webs</li>
+<li class="fragment">Exportar Resultados</li>
+</ul>
+</section></section>
+<section><section id="indices-normalizados-ndvi" class="title-slide slide level1 center black" data-background="src/images/NDVI_resumen_2018.jpg"><h1>Índices Normalizados NDVI</h1></section><section id="section-1" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">.filterDate</span>(<span class="st">&#39;2019-01-01&#39;</span>, <span class="st">&#39;2019-03-01&#39;</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">Map.setCenter</span>(<span class="op">-</span><span class="fl">70.6728</span>, <span class="fl">-33.4463</span>, <span class="dv">10</span>);</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">var composite =<span class="st"> </span><span class="kw">collection.median</span>()</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="op">/</span><span class="er">/</span><span class="st"> </span>ndvi =<span class="st"> </span>(nir <span class="op">-</span><span class="st"> </span>red) <span class="op">/</span><span class="st"> </span>(nir <span class="op">+</span><span class="st"> </span>red)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">var nir =<span class="st"> </span><span class="kw">composite.select</span>(<span class="st">&quot;B5&quot;</span>)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">var red =<span class="st"> </span><span class="kw">composite.select</span>(<span class="st">&quot;B4&quot;</span>)</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="kw">print</span>(nir <span class="op">+</span><span class="st"> </span>red) <span class="op">/</span><span class="er">/</span><span class="st"> </span>Error</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="op">/</span><span class="er">/</span><span class="st"> </span><span class="op">+</span><span class="st"> </span>es sumar dos objetos en <span class="kw">proxis</span> (instrucciones) no imagenes en el servidor</a></code></pre></div>
+</section><section id="section-2" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>ndvi =<span class="st"> </span>(nir <span class="op">-</span><span class="st"> </span>red) <span class="op">/</span><span class="st"> </span>(nir <span class="op">+</span><span class="st"> </span>red)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">var ndvi =<span class="st"> </span><span class="kw">composite.expression</span>(<span class="st">&quot;(nir - red) / (nir + red)&quot;</span>,{</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  nir<span class="op">:</span><span class="st"> </span><span class="kw">composite.select</span>(<span class="st">&quot;B5&quot;</span>), <span class="op">/</span><span class="er">/</span><span class="st"> </span>nir y red variables asignada por diccionario</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  red<span class="op">:</span><span class="st"> </span><span class="kw">composite.select</span>(<span class="st">&quot;B4&quot;</span>)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">})</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="kw">Map.addLayer</span>(ndvi,{min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">  palette<span class="op">:</span>[<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>]} ) </a></code></pre></div>
+<p><img src="src/images/NDVI_1.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section><section id="section-3" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>NDVI Mediante Función (mejora performance)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="cf">function</span>  <span class="kw">addNDVI</span>(image){</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">  var ndvi =<span class="st"> </span><span class="kw">image.expression</span>(<span class="st">&quot;(nir - red) / (nir + red)&quot;</span>,{</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">    nir<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B5&quot;</span>),</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">    red<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B4&quot;</span>)</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">  })<span class="kw">.rename</span>(<span class="st">&quot;ndvi&quot;</span>)</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">  return ndvi</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">}</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">var ndvi =<span class="st"> </span><span class="kw">addNDVI</span>(composite)</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw">Map.addLayer</span>(ndvi,{min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="dv">1</span>, palette<span class="op">:</span>[<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>]} )</a></code></pre></div>
+<p><img src="src/images/NDVI_1.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section><section id="section-4" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Mapeo de la función en la collection </a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">var ndviCollection =<span class="st"> </span><span class="kw">collection.map</span>(addNDVI)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">Map.addLayer</span>(ndviCollection,{min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">  palette<span class="op">:</span>[<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>]} ) </a></code></pre></div>
+<p><img src="src/images/NDVI_2_collect.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section><section id="section-5" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">var ndviCollection =<span class="st"> </span><span class="kw">collection.map</span>(addNDVI)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Visulización collection <span class="kw">max</span>() (reductores), toma el valor máximo todo el año.</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">Map.addLayer</span>(<span class="kw">ndviCollection.max</span>(),{ <span class="op">/</span><span class="er">/</span>toma los valores maximo de todas las imagenes</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">  palette<span class="op">:</span>[<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>]} )</a></code></pre></div>
+<p><img src="src/images/NDVI_3_collect_max.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section><section id="section-6" class="slide level2">
+<h2></h2>
+<p>NDVI de año 2018</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">var result =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="kw">.filterDate</span>(<span class="st">&#39;2018-01-01&#39;</span>, <span class="st">&#39;2018-12-31&#39;</span>)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="kw">.map</span>(<span class="cf">function</span>(image){</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">      return <span class="kw">image.expression</span>(<span class="st">&quot;(nir - red) / (nir + red)&quot;</span>,{</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">        nir<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B5&quot;</span>),</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">        red<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B4&quot;</span>)</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">        })</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">  })</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">  <span class="kw">.max</span>()</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="kw">Map.setCenter</span>(<span class="op">-</span><span class="fl">70.6728</span>, <span class="fl">-33.4463</span>, <span class="dv">10</span>);</a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="kw">Map.addLayer</span>(result,{palette<span class="op">:</span>[<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>]} ) </a></code></pre></div>
+</section><section id="section-7" class="slide level2 center black" data-background="src/images/NDVI_resumen_2018.jpg">
+<h2></h2>
+</section></section>
+<section><section id="indices-normalizados-ndwi" class="title-slide slide level1 center white" data-background="src/images/NDWV_collect_max.jpg"><h1>Índices Normalizados NDWI</h1></section><section id="section-8" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="kw">.filterDate</span>(<span class="st">&#39;2019-01-01&#39;</span>, <span class="st">&#39;2019-03-01&#39;</span>)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">var composite =<span class="st"> </span><span class="kw">collection.median</span>()</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="op">/</span><span class="er">/</span><span class="st"> </span>NDWI =<span class="st"> </span>(green <span class="op">-</span><span class="st"> </span>nir) <span class="op">/</span><span class="st"> </span>(green <span class="op">+</span><span class="st"> </span>nir)  <span class="op">/</span><span class="er">/</span><span class="st"> </span>Método McFeeters, <span class="dv">1996</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">var ndwi =<span class="st"> </span><span class="kw">composite.expression</span>(<span class="st">&quot;(green - nir) / (green + nir)&quot;</span>,{</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">  green<span class="op">:</span><span class="st"> </span><span class="kw">composite.select</span>(<span class="st">&quot;B3&quot;</span>),</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">  nir<span class="op">:</span><span class="st"> </span><span class="kw">composite.select</span>(<span class="st">&quot;B5&quot;</span>)</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">})</a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="kw">Map.setCenter</span>(<span class="op">-</span><span class="fl">72.4975</span>, <span class="fl">-41.1051</span>, <span class="dv">10</span>);</a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="kw">Map.addLayer</span>(ndwi,{palette<span class="op">:</span>[<span class="st">&quot;#25b418&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;black&quot;</span>]} ) </a></code></pre></div>
+<p><img src="src/images/NDWI_1_compsite.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section><section id="section-9" class="slide level2">
+<h2></h2>
+<h5 id="funcion-cloud-masking">Función cloud masking</h5>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">var maskL8 =<span class="st"> </span><span class="cf">function</span>(image) {</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">  var qa =<span class="st"> </span><span class="kw">image.select</span>(<span class="st">&#39;BQA&#39;</span>);</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">  var mask =<span class="st"> </span><span class="kw">qa.bitwiseAnd</span>(<span class="dv">1</span> <span class="op">&lt;</span><span class="er">&lt;</span><span class="st"> </span><span class="dv">4</span>)<span class="kw">.eq</span>(<span class="dv">0</span>);</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">  return <span class="kw">image.updateMask</span>(mask);</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">  <span class="kw">.filterDate</span>(<span class="st">&#39;2019-01-01&#39;</span>, <span class="st">&#39;2019-03-01&#39;</span>)</a>
+<a class="sourceLine" id="cb8-10" data-line-number="10">  <span class="kw">.maskL</span>()</a></code></pre></div>
+</section><section id="section-10" class="slide level2">
+<h2></h2>
+<h5 id="funcion-de-ndwi">Función de NDWI</h5>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>NDWI =<span class="st"> </span>(green <span class="op">-</span><span class="st"> </span>nir) <span class="op">/</span><span class="st"> </span>(green <span class="op">+</span><span class="st"> </span>nir)  <span class="op">/</span><span class="er">/</span><span class="st"> </span>Método McFeeters, <span class="dv">1996</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="cf">function</span>  <span class="kw">addNDWI</span>(image){</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">    var ndwi =<span class="st"> </span><span class="kw">image.expression</span>(<span class="st">&quot;(green - nir) / (green + nir)&quot;</span>,{</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">    green<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B3&quot;</span>),</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">    nir<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B5&quot;</span>)</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">  })<span class="kw">.rename</span>(<span class="st">&quot;nswi&quot;</span>)</a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">  return ndwi</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">}</a>
+<a class="sourceLine" id="cb9-9" data-line-number="9">var ndwiCollection =<span class="st"> </span><span class="kw">collection.map</span>(addNDWI)</a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="kw">Map.setCenter</span>(<span class="op">-</span><span class="fl">72.4975</span>, <span class="fl">-41.1051</span>, <span class="dv">10</span>);</a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="kw">Map.addLayer</span>(<span class="kw">ndwiCollection.max</span>(),{</a>
+<a class="sourceLine" id="cb9-13" data-line-number="13">  palette<span class="op">:</span>[<span class="st">&quot;#25b418&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;black&quot;</span>]} ) </a></code></pre></div>
+</section><section id="section-11" class="slide level2 center black" data-background="src/images/NDWV_collect_max.jpg">
+<h2></h2>
+</section><section id="section-12" class="slide level2">
+<h2></h2>
+<p>Función NDWI</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">var maskL8 =<span class="st"> </span><span class="cf">function</span>(image) {</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">  var qa =<span class="st"> </span><span class="kw">image.select</span>(<span class="st">&#39;BQA&#39;</span>);</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">  var mask =<span class="st"> </span><span class="kw">qa.bitwiseAnd</span>(<span class="dv">1</span> <span class="op">&lt;</span><span class="er">&lt;</span><span class="st"> </span><span class="dv">4</span>)<span class="kw">.eq</span>(<span class="dv">0</span>);</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">  return <span class="kw">image.updateMask</span>(mask);</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">  <span class="kw">.filterDate</span>(<span class="st">&#39;2019-04-01&#39;</span>, <span class="st">&#39;2019-06-01&#39;</span>)</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">  <span class="kw">.maskL</span>()</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="op">/</span><span class="er">/</span><span class="st"> </span>NDWI =<span class="st"> </span>(green <span class="op">-</span><span class="st"> </span>nir) <span class="op">/</span><span class="st"> </span>(green <span class="op">+</span><span class="st"> </span>nir)  <span class="op">/</span><span class="er">/</span><span class="st"> </span>Método McFeeters, <span class="dv">1996</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="cf">function</span>  <span class="kw">addNDWI</span>(image){</a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">    var ndwi =<span class="st"> </span><span class="kw">image.expression</span>(<span class="st">&quot;(green - nir) / (green + nir)&quot;</span>,{</a>
+<a class="sourceLine" id="cb10-15" data-line-number="15">    green<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B3&quot;</span>),</a>
+<a class="sourceLine" id="cb10-16" data-line-number="16">    nir<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B5&quot;</span>)</a>
+<a class="sourceLine" id="cb10-17" data-line-number="17">  })<span class="kw">.rename</span>(<span class="st">&quot;nswi&quot;</span>)</a>
+<a class="sourceLine" id="cb10-18" data-line-number="18">  return ndwi</a>
+<a class="sourceLine" id="cb10-19" data-line-number="19">}</a>
+<a class="sourceLine" id="cb10-20" data-line-number="20">var ndwiCollection =<span class="st"> </span><span class="kw">collection.map</span>(addNDWI)</a>
+<a class="sourceLine" id="cb10-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb10-22" data-line-number="22"><span class="kw">Map.setCenter</span>(<span class="op">-</span><span class="fl">72.4975</span>, <span class="fl">-41.1051</span>, <span class="dv">10</span>);</a>
+<a class="sourceLine" id="cb10-23" data-line-number="23"><span class="kw">Map.addLayer</span>(<span class="kw">ndwiCollection.max</span>(),{</a>
+<a class="sourceLine" id="cb10-24" data-line-number="24">  palette<span class="op">:</span>[<span class="st">&quot;#25b418&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;black&quot;</span>]} ) </a></code></pre></div>
+</section><section id="section-13" class="slide level2 center black" data-background="src/images/NDWV_collect_max.jpg">
+<h2></h2>
+</section></section>
+<section><section id="indices-normalizados-ndsi" class="title-slide slide level1 center white" data-background="src/images/ndsi_h.jpg"><h1>Índices Normalizados NDSI</h1></section><section id="section-14" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">var maskL8 =<span class="st"> </span><span class="cf">function</span>(image) {</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">  var qa =<span class="st"> </span><span class="kw">image.select</span>(<span class="st">&#39;BQA&#39;</span>);</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">  var mask =<span class="st"> </span><span class="kw">qa.bitwiseAnd</span>(<span class="dv">1</span> <span class="op">&lt;</span><span class="er">&lt;</span><span class="st"> </span><span class="dv">4</span>)<span class="kw">.eq</span>(<span class="dv">0</span>);</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">  return <span class="kw">image.updateMask</span>(mask);</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">  <span class="kw">.filterDate</span>(<span class="st">&#39;2019-01-01&#39;</span>, <span class="st">&#39;2019-03-01&#39;</span>)</a>
+<a class="sourceLine" id="cb11-9" data-line-number="9">  <span class="kw">.map</span>(maskL8)</a>
+<a class="sourceLine" id="cb11-10" data-line-number="10">  <span class="kw">.median</span>()</a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="cf">function</span>  <span class="kw">addNDSI</span>(image){</a>
+<a class="sourceLine" id="cb11-13" data-line-number="13">  var ndsi =<span class="st"> </span><span class="kw">image.expression</span>(<span class="st">&quot;(green - swir) / (green + swir)&quot;</span>,{</a>
+<a class="sourceLine" id="cb11-14" data-line-number="14">    swir<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B6&quot;</span>),</a>
+<a class="sourceLine" id="cb11-15" data-line-number="15">    green<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B3&quot;</span>)</a>
+<a class="sourceLine" id="cb11-16" data-line-number="16">  })<span class="kw">.rename</span>(<span class="st">&quot;ndsi&quot;</span>)</a>
+<a class="sourceLine" id="cb11-17" data-line-number="17">  return ndsi</a>
+<a class="sourceLine" id="cb11-18" data-line-number="18">}</a></code></pre></div>
+</section><section id="section-15" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">var ndvi =<span class="st"> </span><span class="kw">addNDSI</span>(collection)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">Map.setCenter</span>(<span class="op">-</span><span class="fl">69.8255</span>, <span class="fl">-33.4085</span>, <span class="dv">10</span>);</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="kw">Map.addLayer</span>(ndvi,{min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">  palette<span class="op">:</span>[<span class="st">&quot;#2F4F4F&quot;</span>, <span class="st">&quot;#FFFAF0&quot;</span>]} ) </a></code></pre></div>
+<p><img src="src/images/ndsi_inv.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section></section>
+<section><section id="pendientes-y-orientacion-de-laderas" class="title-slide slide level1 center white" data-background="src/images/dem.jpg"><h1>Pendientes y orientación de laderas</h1></section><section id="section-16" class="slide level2">
+<h2></h2>
+<h5 id="declaracion-de-variables">Declaración de variables</h5>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">var paleta1 =<span class="st"> </span>[<span class="st">&#39;3ae237&#39;</span>, <span class="st">&#39;b5e22e&#39;</span>, <span class="st">&#39;d6e21f&#39;</span>, <span class="st">&#39;fff705&#39;</span>, <span class="st">&#39;ffd611&#39;</span>, <span class="st">&#39;ffb613&#39;</span>, <span class="st">&#39;ff8b13&#39;</span>,</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">    <span class="st">&#39;ff6e08&#39;</span>, <span class="st">&#39;ff500d&#39;</span>, <span class="st">&#39;ff0000&#39;</span>, <span class="st">&#39;de0101&#39;</span>, <span class="st">&#39;c21301&#39;</span>, <span class="st">&#39;0602ff&#39;</span>, <span class="st">&#39;235cb1&#39;</span>, <span class="st">&#39;307ef3&#39;</span>, <span class="st">&#39;</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">    269db1&#39;</span>, <span class="st">&#39;30c8e2&#39;</span>, <span class="st">&#39;32d3ef&#39;</span>, <span class="st">&#39;3be285&#39;</span>, <span class="st">&#39;3ff38f&#39;</span>, <span class="st">&#39;86e26f&#39;</span>];</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">var paleta2 =[</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">    <span class="st">&#39;0602ff&#39;</span>, <span class="st">&#39;235cb1&#39;</span>, <span class="st">&#39;307ef3&#39;</span>, <span class="st">&#39;269db1&#39;</span>, <span class="st">&#39;30c8e2&#39;</span>, <span class="st">&#39;32d3ef&#39;</span>, <span class="st">&#39;3ae237&#39;</span>,</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">    <span class="st">&#39;b5e22e&#39;</span>, <span class="st">&#39;d6e21f&#39;</span>, <span class="st">&#39;fff705&#39;</span>, <span class="st">&#39;ffd611&#39;</span>, <span class="st">&#39;ffb613&#39;</span>, <span class="st">&#39;ff8b13&#39;</span>, <span class="st">&#39;ff6e08&#39;</span>,</a>
+<a class="sourceLine" id="cb13-8" data-line-number="8">    <span class="st">&#39;ff500d&#39;</span>, <span class="st">&#39;ff0000&#39;</span>, <span class="st">&#39;de0101&#39;</span>, <span class="st">&#39;c21301&#39;</span>];</a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="op">/</span><span class="er">/</span>Selección de la colección DEM</a>
+<a class="sourceLine" id="cb13-11" data-line-number="11">var DEM =<span class="st"> </span><span class="kw">ee.Image</span>(<span class="st">&quot;JAXA/ALOS/AW3D30_V1_1&quot;</span>);</a></code></pre></div>
+</section><section id="section-17" class="slide level2">
+<h2></h2>
+<h4 id="generacion-de-los-mapas-de-pendientes-y-orientacion-de-laderas">Generación de los mapas de pendientes y orientación de laderas</h4>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="op">/</span><span class="er">/</span>Generación de los mapas de pendientes y orientación de laderas</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">var slope =<span class="st">  </span><span class="kw">ee.Terrain.slope</span> (DEM);</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">var aspect =<span class="st">  </span><span class="kw">ee.Terrain.aspect</span> (DEM);</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">var DSM =<span class="st"> </span><span class="kw">DEM.select</span>(<span class="st">&#39;AVE&#39;</span>);</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="op">/</span><span class="er">/</span>Visualización de pendientes</a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="kw">Map.addLayer</span> (slope,{min<span class="op">:</span><span class="st"> </span><span class="fl">0.0</span>, max<span class="op">:</span><span class="st"> </span><span class="fl">90.0</span>, palette<span class="op">:</span><span class="st"> </span>paleta1},<span class="st">&#39;Pendientes&#39;</span>);</a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="op">/</span><span class="er">/</span>Visualización de orientación de laderas</a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="kw">Map.addLayer</span> (aspect,{min<span class="op">:</span><span class="st"> </span><span class="fl">0.0</span>, max<span class="op">:</span><span class="st"> </span><span class="fl">360.0</span>,palette<span class="op">:</span><span class="st"> </span>paleta1},<span class="st">&#39;Laderas&#39;</span>);</a>
+<a class="sourceLine" id="cb14-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="op">/</span><span class="er">/</span>Visualización de DEM</a>
+<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="kw">Map.addLayer</span> (DSM,{min<span class="op">:</span><span class="st"> </span><span class="fl">-479.0</span>,max<span class="op">:</span><span class="st"> </span><span class="fl">8859.0</span>,palette<span class="op">:</span><span class="st"> </span>paleta2},<span class="st">&#39;DEM&#39;</span>);</a></code></pre></div>
+</section><section id="section-18" class="slide level2">
+<h2></h2>
+<h4 id="visualizacion-de-pendientes">Visualización de pendientes</h4>
+<p><img src="src/images/dem_pendientes.JPG" style="display:block; border:none; margin:auto; width:120%"></img></p>
+</section><section id="section-19" class="slide level2">
+<h2></h2>
+<h4 id="visualizacion-de-orientacion-de-laderas">Visualización de orientación de laderas</h4>
+<p><img src="src/images/dem_laderas.JPG" style="display:block; border:none; margin:auto; width:120%"></img></p>
+</section><section id="section-20" class="slide level2">
+<h2></h2>
+<h4 id="visualizacion-de-dem">Visualización de DEM</h4>
+<p><img src="src/images/dem.JPG" style="display:block; border:none; margin:auto; width:120%"></img></p>
+</section></section>
+<section><section id="efecto-de-cortina" class="title-slide slide level1 center white" data-background="src/images/swipe_efect.jpg"><h1>Efecto de Cortina</h1></section><section id="section-21" class="slide level2">
+<h2></h2>
+<h4 id="coleccion-sentinel-y-filtro-de-fechas-y-nubes">colección Sentinel y filtro de fechas y nubes</h4>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">Map.setCenter</span>(<span class="op">-</span><span class="fl">70.6728</span>, <span class="fl">-33.4463</span>, <span class="dv">10</span>);</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="op">/</span><span class="er">/</span><span class="st"> </span>LLamada a la colección Sentinel y filtro de fechas y nubes</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3">var Sentinel =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&#39;COPERNICUS/S2&#39;</span>)</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">    <span class="kw">.filterDate</span>(<span class="st">&#39;2018-10-01&#39;</span>, <span class="st">&#39;2018-12-30&#39;</span>)</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5">    <span class="kw">.filterMetadata</span> (<span class="st">&#39;CLOUDY_PIXEL_PERCENTAGE&#39;</span>, <span class="st">&#39;Less_Than&#39;</span>, <span class="dv">10</span>);</a></code></pre></div>
+</section><section id="section-22" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Realizamos la composición RGB del mapa inicial</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">Map.addLayer</span>(Sentinel, {bands<span class="op">:</span><span class="st"> </span>[<span class="st">&#39;B11&#39;</span>, <span class="st">&#39;B8&#39;</span>, <span class="st">&#39;B2&#39;</span>],</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">  gamma<span class="op">:</span><span class="st"> </span><span class="dv">1</span>, min<span class="op">:</span><span class="st"> </span><span class="dv">0</span>, max<span class="op">:</span><span class="st"> </span><span class="dv">5000</span>,}, <span class="st">&#39;Agricultura&#39;</span>);</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Realizamos la composición RGB del segundo mapa</a>
+<a class="sourceLine" id="cb16-6" data-line-number="6">var MapasVinculados =<span class="st"> </span><span class="kw">ui.Map</span>();</a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="kw">MapasVinculados.addLayer</span>(Sentinel, {bands<span class="op">:</span><span class="st"> </span>[<span class="st">&#39;B8&#39;</span>, <span class="st">&#39;B4&#39;</span>, <span class="st">&#39;B3&#39;</span>],</a>
+<a class="sourceLine" id="cb16-9" data-line-number="9">  gamma<span class="op">:</span><span class="st"> </span><span class="dv">1</span>, min<span class="op">:</span><span class="st"> </span><span class="dv">0</span>, max<span class="op">:</span><span class="st"> </span><span class="dv">5000</span>}, <span class="st">&#39;Falso color&#39;</span>);</a>
+<a class="sourceLine" id="cb16-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Vinculamos los mapas</a>
+<a class="sourceLine" id="cb16-12" data-line-number="12">var SWIPE =<span class="st"> </span><span class="kw">ui.Map.Linker</span>([<span class="kw">ui.root.widgets</span>()<span class="kw">.get</span>(<span class="dv">0</span>), MapasVinculados]);</a></code></pre></div>
+</section><section id="section-23" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Integramos el efecto swipe creando una cortinilla horizontal o vertical</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">var SWIPE2 =<span class="st"> </span><span class="kw">ui.SplitPanel</span>({</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">  firstPanel<span class="op">:</span><span class="st"> </span><span class="kw">SWIPE.get</span>(<span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4">  secondPanel<span class="op">:</span><span class="st"> </span><span class="kw">SWIPE.get</span>(<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb17-5" data-line-number="5">  orientation<span class="op">:</span><span class="st"> &#39;horizontal&#39;</span>, <span class="op">/</span><span class="er">/</span><span class="st">&#39;horizontal&#39;</span> o <span class="st">&#39;vertical&#39;</span></a>
+<a class="sourceLine" id="cb17-6" data-line-number="6">  wipe<span class="op">:</span><span class="st"> </span>true,</a>
+<a class="sourceLine" id="cb17-7" data-line-number="7">  style<span class="op">:</span><span class="st"> </span>{stretch<span class="op">:</span><span class="st"> &#39;both&#39;</span>}});</a>
+<a class="sourceLine" id="cb17-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb17-9" data-line-number="9"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Mostramos los mapas vinculados con efecto swipe, centramos en coordenada y asignamos zoom</a>
+<a class="sourceLine" id="cb17-10" data-line-number="10"><span class="kw">ui.root.widgets</span>()<span class="kw">.reset</span>([SWIPE2]);</a>
+<a class="sourceLine" id="cb17-11" data-line-number="11"><span class="op">/</span><span class="er">/</span><span class="kw">MapasVinculados.setCenter</span>(<span class="op">-</span><span class="fl">24.366</span>,<span class="fl">14.945</span>, <span class="dv">13</span>);</a></code></pre></div>
+</section><section id="section-24" class="slide level2">
+<h2></h2>
+<h4 id="efecto-cortina-sentinel">Efecto Cortina Sentinel</h4>
+<p><img src="src/images/swipe_efect.JPG" style="display:block; border:none; margin:auto; width:120%"></img></p>
+</section></section>
+<section><section id="timelapse-modis" class="title-slide slide level1 center grey" data-background="src/images/timelapse_modis.jpg"><h1>Timelapse Modis</h1></section><section id="section-25" class="slide level2">
+<h2></h2>
+<h4 id="coleccion-de-imagenes-y-filtramos-fechas-de-analisis">colección de imágenes y filtramos fechas de análisis</h4>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Llamamos a la colección de imágenes y filtramos fechas de análisis</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">var MODIS =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&#39;MODIS/006/MOD13Q1&#39;</span>)</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">  <span class="kw">.filterDate</span>(<span class="st">&#39;2018-03-01&#39;</span>, <span class="st">&#39;2018-08-10&#39;</span>);</a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Hacemos una llamada a la banda del índice o lo componemos a través del juego de bandas</a>
+<a class="sourceLine" id="cb18-6" data-line-number="6">var IndiceEVI =<span class="st"> </span><span class="kw">MODIS.select</span>([<span class="st">&#39;EVI&#39;</span>]);</a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Definimos las coordenadas máximas y mínimas de visualización en el timelapse</a>
+<a class="sourceLine" id="cb18-9" data-line-number="9">var ZonaAOI =<span class="st"> </span><span class="kw">ee.Geometry.Rectangle</span>({</a>
+<a class="sourceLine" id="cb18-10" data-line-number="10">  coords<span class="op">:</span><span class="st"> </span>[[<span class="op">-</span><span class="dv">89</span>,<span class="op">-</span><span class="dv">55</span>], [<span class="op">-</span><span class="dv">30</span>,<span class="dv">14</span>]]});</a></code></pre></div>
+</section><section id="section-26" class="slide level2">
+<h2></h2>
+<h4 id="animacion-con-la-coleccion-de-imagenes">animación con la colección de imagenes</h4>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Creamos la animación con la colección de imagenes y parámetros del timelapses</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">var Animacion =<span class="st"> </span><span class="kw">ui.Thumbnail</span>({</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">  image<span class="op">:</span><span class="st"> </span>IndiceEVI ,</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">  params<span class="op">:</span><span class="st"> </span>Timelapse,</a>
+<a class="sourceLine" id="cb19-5" data-line-number="5">  style<span class="op">:</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb19-6" data-line-number="6">    position<span class="op">:</span><span class="st"> &#39;bottom-right&#39;</span>, </a>
+<a class="sourceLine" id="cb19-7" data-line-number="7">    width<span class="op">:</span><span class="st"> &#39;300px&#39;</span>}});</a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="kw">Map.add</span>(Animacion);</a></code></pre></div>
+</section><section id="section-27" class="slide level2">
+<h2></h2>
+<h4 id="parametrizamos-el-timelapse">Parametrizamos el timelapse</h4>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Parametrizamos el timelapse con proyección, resolución, AOI, valores de pixel y frames<span class="op">/</span>seg</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">var Timelapse =<span class="st"> </span>{</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">  crs<span class="op">:</span><span class="st"> &#39;EPSG:4326&#39;</span>,</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">  dimensions<span class="op">:</span><span class="st"> &#39;600&#39;</span>,</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">  region<span class="op">:</span><span class="st"> </span>ZonaAOI,</a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">  min<span class="op">:</span><span class="st"> </span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">  max<span class="op">:</span><span class="st"> </span><span class="dv">3000</span>,</a>
+<a class="sourceLine" id="cb20-8" data-line-number="8">  palette<span class="op">:</span><span class="st"> &#39;ffffff, fcd163, 99b718, 66a000, 3e8601, 207401, 056201, 004c00, 011301&#39;</span>,</a>
+<a class="sourceLine" id="cb20-9" data-line-number="9">  framesPerSecond<span class="op">:</span><span class="st"> </span><span class="dv">5</span>,};</a></code></pre></div>
+</section><section id="section-28" class="slide level2">
+<h2></h2>
+<h4 id="imagen-compuesta-del-timelapse-sobre-el-visor">imagen compuesta del timelapse sobre el visor</h4>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Adicionalmente visualizamos una imagen compuesta del timelapse sobre el visor</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">var MODIS_Composicion =<span class="st"> </span><span class="kw">ee.Image</span>(IndiceEVI <span class="kw">.median</span>());</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="kw">Map.addLayer</span> (MODIS_Composicion, {</a>
+<a class="sourceLine" id="cb21-4" data-line-number="4">  min<span class="op">:</span><span class="st"> </span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb21-5" data-line-number="5">  max<span class="op">:</span><span class="st"> </span><span class="dv">3000</span>,</a>
+<a class="sourceLine" id="cb21-6" data-line-number="6">  palette<span class="op">:</span><span class="st"> &#39;ffffff, fcd163, 99b718, 66a000, 3e8601, 207401, 056201, 004c00, 011301&#39;</span>,</a>
+<a class="sourceLine" id="cb21-7" data-line-number="7">  bands<span class="op">:</span><span class="st"> </span>[<span class="st">&#39;EVI&#39;</span>]}, </a>
+<a class="sourceLine" id="cb21-8" data-line-number="8">  <span class="st">&#39;Indice EVI&#39;</span>);</a>
+<a class="sourceLine" id="cb21-9" data-line-number="9"><span class="kw">Map.centerObject</span>(MODIS_Composicion, <span class="dv">2</span>);</a></code></pre></div>
+</section><section id="section-29" class="slide level2">
+<h2></h2>
+<h4 id="timelapse-modis-1">TimeLapse Modis</h4>
+<p><img src="src/images/tl_modis.gif" style="display:block; border:none; margin:auto; width:40%"></img></p>
+</section></section>
+<section><section id="frames-y-animaciones" class="title-slide slide level1"><h1>Frames y Animaciones</h1></section><section id="section-30" class="slide level2">
+<h2></h2>
+<h4 id="geometry-de-santiago">geometry de Santiago</h4>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">var geometry =<span class="st"> </span><span class="kw">ee.Geometry.Polygon</span>(</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">        [[[<span class="op">-</span><span class="fl">70.91282255066051</span>, <span class="fl">-33.27677813940723</span>],</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">          [<span class="op">-</span><span class="fl">70.91282255066051</span>, <span class="fl">-33.6936886260688</span>],</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">          [<span class="op">-</span><span class="fl">70.39097196472301</span>, <span class="fl">-33.6936886260688</span>],</a>
+<a class="sourceLine" id="cb22-5" data-line-number="5">          [<span class="op">-</span><span class="fl">70.39097196472301</span>, <span class="fl">-33.27677813940723</span>]]], null, false);</a></code></pre></div>
+</section><section id="section-31" class="slide level2">
+<h2></h2>
+<h4 id="obtener-imagenes-y-filtros">Obtener Imagenes y filtros</h4>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Declaramos una primera variable para obtener imagenes Landsat y filtramos las imágenes</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">var ColeccionLandsat=<span class="st"> </span><span class="kw">ee.ImageCollection</span> (<span class="st">&#39;LANDSAT/LC08/C01/T1_RT&#39;</span>) </a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">  <span class="kw">.filterBounds</span> (geometry) <span class="op">/</span><span class="er">/</span>No olvides digitalizar la zona AOI en la que estás interesado</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">  <span class="kw">.filterDate</span> (<span class="st">&#39;2017-01-01&#39;</span>, <span class="st">&#39;2017-12-31&#39;</span>) <span class="op">/</span><span class="er">/</span><span class="st"> </span>Asigna una fecha para componer el timelapse</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">  <span class="kw">.filterMetadata</span> (<span class="st">&#39;CLOUD_COVER&#39;</span>, <span class="st">&#39;Less_Than&#39;</span>, <span class="dv">20</span>) <span class="op">/</span><span class="er">/</span>Filtra las imágenes con exceso de nubes</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">  <span class="kw">.map</span>(<span class="cf">function</span> (image){return <span class="kw">image.clip</span>(geometry);});</a></code></pre></div>
+</section><section id="section-32" class="slide level2">
+<h2></h2>
+<h4 id="composision-rgb">Composisión RGB</h4>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Declaramos una nueva variable bajo la que realizar composiciones RGB o índices</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">var ComposicionRGB =<span class="st"> </span>{ </a>
+<a class="sourceLine" id="cb24-4" data-line-number="4">  bands<span class="op">:</span><span class="st"> </span>[<span class="st">&#39;B5&#39;</span>,<span class="st">&#39;B4&#39;</span>,<span class="st">&#39;B3&#39;</span>], <span class="op">/</span><span class="er">/</span><span class="st"> </span>Realiza tu composición de imágenes</a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">  crs<span class="op">:</span><span class="st"> &#39;EPSG:4326&#39;</span>, <span class="op">/</span><span class="er">/</span><span class="st"> </span>Asigna un sistema mediante código EPSG</a>
+<a class="sourceLine" id="cb24-6" data-line-number="6">  min<span class="op">:</span><span class="st"> </span><span class="fl">0.0</span>,</a>
+<a class="sourceLine" id="cb24-7" data-line-number="7">  max<span class="op">:</span><span class="st"> </span><span class="fl">30000.0</span>, <span class="op">/</span><span class="er">/</span><span class="st"> </span>Juega con los valores de píxel para su representación más clara</a>
+<a class="sourceLine" id="cb24-8" data-line-number="8">  framesPerSecond<span class="op">:</span><span class="st"> </span><span class="dv">4</span>, <span class="op">/</span><span class="er">/</span><span class="st"> </span>Añade los frames por segundo para acelerar la animación</a>
+<a class="sourceLine" id="cb24-9" data-line-number="9">  dimensions<span class="op">:</span><span class="st"> &#39;600&#39;</span>,}; <span class="op">/</span><span class="er">/</span><span class="st"> </span>Parametriza una dimensión máxima de tamaño del gif</a></code></pre></div>
+</section><section id="section-33" class="slide level2">
+<h2></h2>
+<h4 id="generacion-gif-y-frames">Generación GIF y Frames</h4>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Generamos el GIF animado del timelpase e imprimimos su URL para descarga</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">var AnimacionGIF =<span class="st"> </span><span class="kw">ColeccionLandsat.getVideoThumbURL</span> (ComposicionRGB);</a>
+<a class="sourceLine" id="cb25-5" data-line-number="5"><span class="kw">print</span> (AnimacionGIF);</a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Generamos la secuencia de frames que forman el timelpase e imprimimos su URL para descarga</a>
+<a class="sourceLine" id="cb25-8" data-line-number="8">var FramesPelicula =<span class="st"> </span><span class="kw">ColeccionLandsat.getFilmstripThumbURL</span> (ComposicionRGB);</a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="kw">print</span> (FramesPelicula);</a></code></pre></div>
+</section><section id="section-34" class="slide level2">
+<h2></h2>
+<h4 id="timelapse-false-color-santiago">TimeLapse False Color Santiago</h4>
+<p><img src="src/images/tl_fc_stgo.gif" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section></section>
+<section><section id="aplicaciones-webs" class="title-slide slide level1 center white" data-background="src/images/app_gee_2.jpg"><h1>Aplicaciones webs</h1></section><section id="section-35" class="slide level2">
+<h2></h2>
+<p>Crear composición y variables de para visualización</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">var geometry =<span class="st"> </span><span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">70.6728</span>, <span class="fl">-33.4463</span>]);</a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">var landsat =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1&quot;</span>)</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">    <span class="kw">.filterDate</span>(<span class="st">&#39;2017-01-01&#39;</span>, <span class="st">&#39;2018-01-01&#39;</span>)</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">    <span class="kw">.filterBounds</span>(geometry)</a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb26-6" data-line-number="6"><span class="op">/</span><span class="er">/</span>descartar pixeles con nubes</a>
+<a class="sourceLine" id="cb26-7" data-line-number="7">var composite =<span class="st"> </span><span class="kw">ee.Algorithms.Landsat.simpleComposite</span>({ </a>
+<a class="sourceLine" id="cb26-8" data-line-number="8">  collection<span class="op">:</span><span class="st"> </span>landsat,</a>
+<a class="sourceLine" id="cb26-9" data-line-number="9">  asFloat<span class="op">:</span><span class="st"> </span>true</a>
+<a class="sourceLine" id="cb26-10" data-line-number="10">})</a>
+<a class="sourceLine" id="cb26-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb26-12" data-line-number="12">var vis =<span class="st"> </span>{</a>
+<a class="sourceLine" id="cb26-13" data-line-number="13">  <span class="st">&quot;RGB&quot;</span><span class="op">:</span><span class="st"> </span>{bands<span class="op">:</span><span class="st"> </span>[<span class="st">&quot;B4&quot;</span>, <span class="st">&quot;B3&quot;</span>, <span class="st">&quot;B2&quot;</span>], min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="st"> </span><span class="fl">0.3</span>},</a>
+<a class="sourceLine" id="cb26-14" data-line-number="14">  <span class="st">&quot;False Color&quot;</span><span class="op">:</span><span class="st"> </span>{bands<span class="op">:</span><span class="st"> </span>[<span class="st">&quot;B5&quot;</span>, <span class="st">&quot;B4&quot;</span>, <span class="st">&quot;B3&quot;</span>], min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="st"> </span>[<span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>]},</a>
+<a class="sourceLine" id="cb26-15" data-line-number="15">  <span class="st">&quot;Thermal&quot;</span><span class="op">:</span><span class="st"> </span>{bands<span class="op">:</span><span class="st"> </span>[<span class="st">&quot;B10&quot;</span>], min<span class="op">:</span><span class="st"> </span><span class="dv">280</span>, max<span class="op">:</span><span class="st"> </span><span class="dv">310</span>, </a>
+<a class="sourceLine" id="cb26-16" data-line-number="16">    palette<span class="op">:</span><span class="st"> </span>[<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;yellow&quot;</span>]}</a>
+<a class="sourceLine" id="cb26-17" data-line-number="17">}</a></code></pre></div>
+</section><section id="section-36" class="slide level2">
+<h2></h2>
+<p>Crear Loop para unir mapas y añadir parámetros de visualización</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">var maps =<span class="st"> </span>[];</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="cf">for</span> (var label <span class="cf">in</span> vis) {</a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">  var map =<span class="st"> </span><span class="kw">ui.Map</span>()<span class="kw">.setControlVisibility</span>(false)</a>
+<a class="sourceLine" id="cb27-4" data-line-number="4">  <span class="kw">map.addLayer</span>(composite, vis[label])</a>
+<a class="sourceLine" id="cb27-5" data-line-number="5">  <span class="kw">map.add</span>(<span class="kw">ui.Label</span>(label))</a>
+<a class="sourceLine" id="cb27-6" data-line-number="6">  <span class="kw">maps.push</span>(map);</a>
+<a class="sourceLine" id="cb27-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb27-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb27-9" data-line-number="9"><span class="kw">ui.root.widgets</span>()<span class="kw">.reset</span>(maps)</a>
+<a class="sourceLine" id="cb27-10" data-line-number="10">var linker =<span class="st"> </span><span class="kw">ui.Map.Linker</span>(maps);</a>
+<a class="sourceLine" id="cb27-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb27-12" data-line-number="12">maps[<span class="dv">0</span>]<span class="kw">.centerObject</span>(geometry, <span class="dv">10</span>)</a></code></pre></div>
+</section><section id="section-37" class="slide level2 center black" data-background="src/images/app_gee_1.jpg">
+<h2></h2>
+</section><section id="section-38" class="slide level2">
+<h2></h2>
+<p><img data-src="src/images/app-management-icon.png" /></p>
+<p><img data-src="src/images/create-new-app.png" /></p>
+</section><section id="section-39" class="slide level2">
+<h2></h2>
+<p><img src="src/images/publish-app-dialog.png" style="display:block; border:none; margin:auto; width:40%"></img></p>
+</section></section>
+<section><section id="exportar-resultados" class="title-slide slide level1"><h1>Exportar Resultados</h1></section><section id="section-40" class="slide level2">
+<h2></h2>
+<p>Buffer sobre NDVI</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">var collection =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&quot;LANDSAT/LC08/C01/T1_TOA&quot;</span>)</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">  <span class="kw">.filterDate</span>(<span class="st">&#39;2019-01-01&#39;</span>, <span class="st">&#39;2019-03-01&#39;</span>)</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb28-4" data-line-number="4"><span class="cf">function</span>  <span class="kw">addNDVI</span>(image){</a>
+<a class="sourceLine" id="cb28-5" data-line-number="5">  var ndvi =<span class="st"> </span><span class="kw">image.expression</span>(<span class="st">&quot;(nir - red) / (nir + red)&quot;</span>,{</a>
+<a class="sourceLine" id="cb28-6" data-line-number="6">    nir<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B5&quot;</span>),</a>
+<a class="sourceLine" id="cb28-7" data-line-number="7">    red<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B4&quot;</span>)</a>
+<a class="sourceLine" id="cb28-8" data-line-number="8">  })<span class="kw">.rename</span>(<span class="st">&quot;ndvi&quot;</span>)</a>
+<a class="sourceLine" id="cb28-9" data-line-number="9">  return ndvi</a>
+<a class="sourceLine" id="cb28-10" data-line-number="10">}</a>
+<a class="sourceLine" id="cb28-11" data-line-number="11">var ndviCollection =<span class="st"> </span><span class="kw">collection.map</span>(addNDVI)</a>
+<a class="sourceLine" id="cb28-12" data-line-number="12">var maxNDVI =<span class="st"> </span><span class="kw">ndviCollection.max</span>()</a>
+<a class="sourceLine" id="cb28-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb28-14" data-line-number="14"><span class="kw">Map.setCenter</span>(<span class="op">-</span><span class="fl">70.6728</span>, <span class="fl">-33.4463</span>, <span class="dv">10</span>);</a>
+<a class="sourceLine" id="cb28-15" data-line-number="15"><span class="kw">Map.addLayer</span>(maxNDVI,{palette<span class="op">:</span>[<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>]} ) </a>
+<a class="sourceLine" id="cb28-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb28-17" data-line-number="17"><span class="op">/</span><span class="er">/</span><span class="st"> </span>Crear un punto y un buffer sobre el</a>
+<a class="sourceLine" id="cb28-18" data-line-number="18">var punto_stgo =<span class="st"> </span><span class="kw">ee.Geometry.Point</span>([<span class="op">-</span><span class="fl">70.6673068359375</span>, <span class="fl">-33.46577773512672</span>]);</a>
+<a class="sourceLine" id="cb28-19" data-line-number="19">var roi =<span class="st"> </span><span class="kw">punto_stgo.buffer</span>(<span class="dv">20000</span>)</a>
+<a class="sourceLine" id="cb28-20" data-line-number="20"><span class="er">)</span></a></code></pre></div>
+</section><section id="section-41" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">Export.image.toDrive</span>({</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">  image<span class="op">:</span><span class="st"> </span>maxNDVI,</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">  description<span class="op">:</span><span class="st"> &#39;maxNDVI_STGO&#39;</span>,</a>
+<a class="sourceLine" id="cb29-4" data-line-number="4">  region<span class="op">:</span><span class="st"> </span>roi,</a>
+<a class="sourceLine" id="cb29-5" data-line-number="5">  scale<span class="op">:</span><span class="dv">30</span>, <span class="op">/</span><span class="er">/</span>resolución imagen</a>
+<a class="sourceLine" id="cb29-6" data-line-number="6">  crs<span class="op">:</span><span class="st"> &quot;EPSG:4326&quot;</span></a>
+<a class="sourceLine" id="cb29-7" data-line-number="7">})</a></code></pre></div>
+<p><img src="src/images/buffer_stgo.JPG" style="display:block; border:none; margin:auto; width:60%"></img></p>
+<p><!-- Autor: Denis Berroeta Gonzalez CIT-UAI 2019--></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="01_gee_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="01_gee_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Display the page number of the current slide
+        slideNumber: false,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 1,
+        maxScale: 1,
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '01_gee_files/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+        ]
+      });
+    </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
