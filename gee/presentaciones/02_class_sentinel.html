@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Centro de Inteligencia Territorial - UAI" />
+  <title>Clase 3: Google Earth Engine</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="02_class_sentinel_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="02_class_sentinel_files/reveal.js-3.3.0.1/css/theme/white.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="src/styles/style.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Clase 3: Google Earth Engine</h1>
+  <h1 class="subtitle">Taller de Monitoreo Ambiental y simulación de inundaciones</h1>
+    <h2 class="author">Centro de Inteligencia Territorial - UAI</h2>
+    <h3 class="date">16 de Agosto de 2019</h3>
+</section>
+
+<section><section id="google-earth-engine-contenidos" class="title-slide slide level1 bottom white" data-background="src/images/l8_vilankulos-1080.jpg"><h1>Google Earth Engine: Contenidos</h1></section><section id="section" class="slide level2">
+<h2></h2>
+<h4 id="contenidos">Contenidos</h4>
+<ul>
+<li class="fragment">Clasificación Supervisada Sentinel (Clip ROI)</li>
+<li class="fragment">Subir archivo ShapeFile</li>
+<li class="fragment">Hidrología en GEE</li>
+</ul>
+</section></section>
+<section><section id="clasificacion-supervisada" class="title-slide slide level1 center black" data-background="src/images/sentinel_class.png"><h1>Clasificación Supervisada</h1></section><section id="section-1" class="slide level2">
+<h2></h2>
+<h5 id="definicicion-de-variables-con-insumos-satelitales">Definicición de variables con insumos satelitales</h5>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">var composite =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&#39;COPERNICUS/S2&#39;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">.filterDate</span>(<span class="st">&#39;2019-01-01&#39;</span>, <span class="st">&#39;2019-03-01&#39;</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="kw">.filterMetadata</span> (<span class="st">&#39;CLOUDY_PIXEL_PERCENTAGE&#39;</span>, <span class="st">&#39;Less_Than&#39;</span>, <span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="kw">.select</span>(<span class="st">&quot;B[0-9]*&quot;</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw">.median</span>()</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">var DEM =<span class="st"> </span><span class="kw">ee.Image</span>(<span class="st">&quot;JAXA/ALOS/AW3D30_V1_1&quot;</span>)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">  <span class="kw">.select</span>(<span class="st">&#39;AVE&#39;</span>)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">  <span class="kw">.rename</span>(<span class="st">&quot;dem&quot;</span>)</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">  <span class="kw">.clip</span>(roi)</a></code></pre></div>
+</section><section id="section-2" class="slide level2">
+<h2></h2>
+<h5 id="definicion-de-funciones">Definición de Funciones</h5>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">function</span>  <span class="kw">addNDVI</span>(image){</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  var ndvi =<span class="st"> </span><span class="kw">image.expression</span>(<span class="st">&quot;(nir - red) / (nir + red)&quot;</span>,{</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">    nir<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B5&quot;</span>),</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    red<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B4&quot;</span>)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">  })<span class="kw">.rename</span>(<span class="st">&quot;ndvi&quot;</span>)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  return ndvi</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="cf">function</span>  <span class="kw">addNDSI</span>(image){</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">  var ndsi =<span class="st"> </span><span class="kw">image.expression</span>(<span class="st">&quot;(green - swir) / (green + swir)&quot;</span>,{</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">    swir<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B6&quot;</span>),</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">    green<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B3&quot;</span>)</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">  })<span class="kw">.rename</span>(<span class="st">&quot;ndsi&quot;</span>)</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">  return ndsi</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">}</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="cf">function</span>  <span class="kw">addNDWI</span>(image){</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">    var ndwi =<span class="st"> </span><span class="kw">image.expression</span>(<span class="st">&quot;(green - nir) / (green + nir)&quot;</span>,{</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">    green<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B3&quot;</span>),</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">    nir<span class="op">:</span><span class="st"> </span><span class="kw">image.select</span>(<span class="st">&quot;B5&quot;</span>)</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">  })<span class="kw">.rename</span>(<span class="st">&quot;ndwi&quot;</span>)</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">  return ndwi</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">}</a></code></pre></div>
+</section><section id="section-3" class="slide level2">
+<h2></h2>
+<h5 id="definir-region-de-interes">Definir región de interés</h5>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">var roi =<span class="st"> </span><span class="kw">ee.Geometry.Polygon</span>(</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">        [[[<span class="op">-</span><span class="fl">70.57385358886717</span>, <span class="fl">-33.53129526610362</span>],</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">          [<span class="op">-</span><span class="fl">70.57385358886717</span>, <span class="fl">-33.70340890777862</span>],</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">          [<span class="op">-</span><span class="fl">69.95175275878904</span>, <span class="fl">-33.70340890777862</span>],</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">          [<span class="op">-</span><span class="fl">69.95175275878904</span>, <span class="fl">-33.53129526610362</span>]]], null, false),</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">var paleta2 =[</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">    <span class="st">&#39;0602ff&#39;</span>, <span class="st">&#39;235cb1&#39;</span>, <span class="st">&#39;307ef3&#39;</span>, <span class="st">&#39;269db1&#39;</span>, <span class="st">&#39;30c8e2&#39;</span>, <span class="st">&#39;32d3ef&#39;</span>, <span class="st">&#39;3ae237&#39;</span>,</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">    <span class="st">&#39;b5e22e&#39;</span>, <span class="st">&#39;d6e21f&#39;</span>, <span class="st">&#39;fff705&#39;</span>, <span class="st">&#39;ffd611&#39;</span>, <span class="st">&#39;ffb613&#39;</span>, <span class="st">&#39;ff8b13&#39;</span>, <span class="st">&#39;ff6e08&#39;</span>,</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">    <span class="st">&#39;ff500d&#39;</span>, <span class="st">&#39;ff0000&#39;</span>, <span class="st">&#39;de0101&#39;</span>, <span class="st">&#39;c21301&#39;</span>]; <span class="op">/</span><span class="er">/</span><span class="st"> </span>Paleta para dem</a></code></pre></div>
+</section><section id="section-4" class="slide level2">
+<h2></h2>
+<h5 id="aplicar-funciones-clipear-y-apilar-imagenes">Aplicar funciones, clipear y apilar imágenes</h5>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">var ndvi =<span class="st"> </span><span class="kw">addNDVI</span>(composite)<span class="kw">.clip</span>(roi)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">var ndsi =<span class="st"> </span><span class="kw">addNDSI</span>(composite)<span class="kw">.clip</span>(roi)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">var ndwi =<span class="st"> </span><span class="kw">addNDWI</span>(composite)<span class="kw">.clip</span>(roi)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">var rgb =<span class="st"> </span><span class="kw">composite.clip</span>(roi)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">var all =<span class="st"> </span><span class="kw">rgb.addBands</span>(ndvi)<span class="kw">.addBands</span>(ndsi)<span class="kw">.addBands</span>(ndwi)<span class="kw">.addBands</span>(DEM)</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">print</span>(all)</a></code></pre></div>
+</section><section id="section-5" class="slide level2">
+<h2></h2>
+<h4 id="visuliazacion-de-las-bandas">Visuliazación de las Bandas</h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">Map.addLayer</span>(all, {min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="dv">1</span>, bands<span class="op">:</span>[<span class="st">&quot;ndvi&quot;</span>],</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  palette<span class="op">:</span>[<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>]}, <span class="st">&quot;NDVI&quot;</span>);</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">  </a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">Map.addLayer</span>(all,{min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="dv">1</span>, bands<span class="op">:</span>[<span class="st">&quot;ndsi&quot;</span>],</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">palette<span class="op">:</span>[<span class="st">&quot;black&quot;</span>, <span class="st">&quot;white&quot;</span>]}, <span class="st">&quot;NDSI&quot;</span> ) </a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="kw">Map.addLayer</span>(all,{min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="dv">1</span>, bands<span class="op">:</span>[<span class="st">&quot;ndwi&quot;</span>],</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">  palette<span class="op">:</span>[<span class="st">&#39;#f1eef6&#39;</span>,<span class="st">&#39;#bdc9e1&#39;</span>,<span class="st">&#39;#74a9cf&#39;</span>,<span class="st">&#39;#0570b0&#39;</span>]}, <span class="st">&quot;NDWI&quot;</span>) </a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="kw">Map.addLayer</span>(all, {min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="st"> </span><span class="fl">8859.0</span>,</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">  bands<span class="op">:</span>[<span class="st">&quot;dem&quot;</span>], palette<span class="op">:</span><span class="st"> </span>paleta2},<span class="st">&#39;DEM&#39;</span>);</a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="kw">Map.addLayer</span>(all, {min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="dv">2000</span>, gamma<span class="op">:</span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb5-14" data-line-number="14">  bands<span class="op">:</span>[<span class="st">&quot;B4&quot;</span>, <span class="st">&quot;B3&quot;</span>, <span class="st">&quot;B2&quot;</span>]}, <span class="st">&quot;RGB&quot;</span>); </a></code></pre></div>
+</section><section id="section-6" class="slide level2">
+<h2></h2>
+<h5 id="clasificacion-supervisada-1">Clasificación Supervisada</h5>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">var points =<span class="st"> </span><span class="kw">urbano.merge</span>(agua)<span class="kw">.merge</span>(cultivos)<span class="kw">.merge</span>(nieve)<span class="kw">.merge</span>(montana)<span class="kw">.merge</span>(cerros)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">print</span>(points)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">var training =<span class="st"> </span><span class="kw">composite.sampleRegions</span>({</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">    collection<span class="op">:</span><span class="st"> </span>points,</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">    properties<span class="op">:</span><span class="st"> </span>[<span class="st">&quot;class&quot;</span>],</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">    scale<span class="op">:</span><span class="st"> </span><span class="dv">30</span>,</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">    tileScale<span class="op">:</span><span class="dv">16</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">})<span class="kw">.randomColumn</span>()</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">var validation =<span class="st"> </span><span class="kw">training.filter</span>(<span class="kw">ee.Filter.lt</span>(<span class="st">&#39;random&#39;</span>, <span class="fl">0.1</span>))<span class="op">/</span><span class="er">/</span><span class="st"> </span>bajo a</a>
+<a class="sourceLine" id="cb6-12" data-line-number="12">training =<span class="st"> </span><span class="kw">training.filter</span>(<span class="kw">ee.Filter.gte</span>(<span class="st">&#39;random&#39;</span>, <span class="fl">0.1</span>)) <span class="op">/</span><span class="er">/</span><span class="st"> </span>mayor o igual a</a></code></pre></div>
+</section><section id="section-7" class="slide level2">
+<h2></h2>
+<h5 id="visualizar-los-resultados">Visualizar los Resultados</h5>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">training.size</span>())</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">training.reduceColumns</span>(<span class="kw">ee.Reducer.frequencyHistogram</span>(), [<span class="st">&quot;class&quot;</span>]))</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">var classifier =<span class="st"> </span><span class="kw">ee.Classifier.randomForest</span>(<span class="dv">20</span>)<span class="kw">.train</span>(training, <span class="st">&quot;class&quot;</span>, <span class="kw">composite.bandNames</span>())</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw">print</span>(<span class="kw">classifier.confusionMatrix</span>()<span class="kw">.accuracy</span>())</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">var result =<span class="st"> </span><span class="kw">composite.classify</span>(classifier)<span class="kw">.clip</span>(roi)</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="kw">Map.addLayer</span>(result, {min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">  palette<span class="op">:</span>[<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;yellow&quot;</span>]}, <span class="st">&quot;prediccion&quot;</span>)</a></code></pre></div>
+</section><section id="section-8" class="slide level2 center black" data-background="src/images/sentinel_class.png">
+<h2></h2>
+<p><!-- Autor: Denis Berroeta Gonzalez CIT-UAI 2019--></p>
+</section></section>
+<section><section id="subir-archivo-shapefile" class="title-slide slide level1"><h1>Subir archivo ShapeFile</h1></section><section id="section-9" class="slide level2">
+<h2></h2>
+<h5 id="section-10"></h5>
+<p><img src="src/images/asset_add_file.png" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section><section id="section-11" class="slide level2">
+<h2></h2>
+<h5 id="section-12"></h5>
+<p><img src="src/images/add_files.png" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section><section id="section-13" class="slide level2">
+<h2></h2>
+<h5 id="leer">Leer</h5>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">var glaciares =<span class="st"> </span><span class="kw">ee.FeatureCollection</span>(<span class="st">&quot;users/denisberroeta/Glaciares&quot;</span>);</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">Map.addLayer</span>(glaciares, {color<span class="op">:</span><span class="st"> &#39;#bdc9e1&#39;</span>});</a></code></pre></div>
+<p><img src="src/images/add_glaciares.png" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section><section id="section-14" class="slide level2">
+<h2></h2>
+<h5 id="propiedades-de-objeto">Propiedades de objeto</h5>
+<p><img src="src/images/propiedades.png" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section><section id="section-15" class="slide level2">
+<h2></h2>
+<h5 id="filtrar-por-propiedades-de-objeto">Filtrar por propiedades de objeto</h5>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">var glaciares_r13 =<span class="st"> </span><span class="kw">glaciares.filter</span>(<span class="kw">ee.Filter.eq</span>(<span class="st">&#39;REGION&#39;</span>, <span class="st">&#39;METROPOLITANA DE SANTIAGO&#39;</span>));</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">Map.addLayer</span>(glaciares_r13);</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">var glac_r13_menores =<span class="st"> </span><span class="kw">glaciares_r13.filter</span>(<span class="kw">ee.Filter.lte</span>(<span class="st">&#39;Shape_Area&#39;</span>, <span class="dv">500000</span>));<span class="op">/</span><span class="er">/</span>less than or equal</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw">Map.addLayer</span>(glac_r13_menores, {color<span class="op">:</span><span class="st"> &#39;#d63000&#39;</span>});</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">var echaurren =<span class="st"> </span><span class="kw">glaciares_r13.filter</span>(<span class="kw">ee.Filter.eq</span>(<span class="st">&#39;NOMBRE&#39;</span>, <span class="st">&#39;ECHAURREN&#39;</span>));<span class="op">/</span><span class="er">/</span>equal</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="kw">Map.addLayer</span>(echaurren, {color<span class="op">:</span><span class="st"> &#39;#bdc9e1&#39;</span>});</a></code></pre></div>
+<p><img src="src/images/filter_glaciar.png" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section></section>
+<section><section id="hidrologia-en-gee" class="title-slide slide level1 bottom black" data-background="src/images/hidro.png"><h1>Hidrología en GEE</h1></section><section id="section-16" class="slide level2">
+<h2></h2>
+<h5 id="definir-paletas-de-colores">Definir Paletas de Colores</h5>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="op">/</span><span class="er">/</span>Paletas de colores</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">var paleta1 =<span class="st"> </span>[<span class="st">&#39;3ae237&#39;</span>, <span class="st">&#39;b5e22e&#39;</span>, <span class="st">&#39;d6e21f&#39;</span>, <span class="st">&#39;fff705&#39;</span>, <span class="st">&#39;ffd611&#39;</span>, <span class="st">&#39;ffb613&#39;</span>, <span class="st">&#39;ff8b13&#39;</span>,</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">    <span class="st">&#39;ff6e08&#39;</span>, <span class="st">&#39;ff500d&#39;</span>, <span class="st">&#39;ff0000&#39;</span>, <span class="st">&#39;de0101&#39;</span>, <span class="st">&#39;c21301&#39;</span>, <span class="st">&#39;0602ff&#39;</span>, <span class="st">&#39;235cb1&#39;</span>, <span class="st">&#39;307ef3&#39;</span>, </a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">    <span class="st">&#39;269db1&#39;</span>, <span class="st">&#39;30c8e2&#39;</span>, <span class="st">&#39;32d3ef&#39;</span>, <span class="st">&#39;3be285&#39;</span>, <span class="st">&#39;3ff38f&#39;</span>, <span class="st">&#39;86e26f&#39;</span>];</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">var paleta2 =[<span class="st">&#39;0602ff&#39;</span>, <span class="st">&#39;235cb1&#39;</span>, <span class="st">&#39;307ef3&#39;</span>, <span class="st">&#39;269db1&#39;</span>, <span class="st">&#39;30c8e2&#39;</span>, <span class="st">&#39;32d3ef&#39;</span>, <span class="st">&#39;3ae237&#39;</span>, </a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">    <span class="st">&#39;b5e22e&#39;</span>, <span class="st">&#39;d6e21f&#39;</span>, <span class="st">&#39;fff705&#39;</span>, <span class="st">&#39;ffd611&#39;</span>, <span class="st">&#39;ffb613&#39;</span>, <span class="st">&#39;ff8b13&#39;</span>, <span class="st">&#39;ff6e08&#39;</span>, <span class="st">&#39;ff500d&#39;</span>,</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">    <span class="st">&#39;ff0000&#39;</span>, <span class="st">&#39;de0101&#39;</span>, <span class="st">&#39;c21301&#39;</span>];</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">var flowAccumulationVis =<span class="st"> </span>{min<span class="op">:</span><span class="st"> </span><span class="fl">0.0</span>, max<span class="op">:</span><span class="st"> </span><span class="fl">500.0</span>, opacity<span class="op">:</span><span class="fl">0.5</span>,</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">  palette<span class="op">:</span><span class="st"> </span>[<span class="st">&#39;000000&#39;</span>, <span class="st">&#39;023858&#39;</span>, <span class="st">&#39;006837&#39;</span>, <span class="st">&#39;1a9850&#39;</span>, <span class="st">&#39;66bd63&#39;</span>, <span class="st">&#39;a6d96a&#39;</span>, <span class="st">&#39;d9ef8b&#39;</span>,</a>
+<a class="sourceLine" id="cb10-12" data-line-number="12">    <span class="st">&#39;ffffbf&#39;</span>, <span class="st">&#39;fee08b&#39;</span>, <span class="st">&#39;fdae61&#39;</span>, <span class="st">&#39;f46d43&#39;</span>, <span class="st">&#39;d73027&#39;</span>]};</a>
+<a class="sourceLine" id="cb10-13" data-line-number="13">    </a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">var palettes =<span class="st"> </span><span class="kw">require</span>(<span class="st">&#39;users/gena/packages:palettes&#39;</span>)</a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="kw">print</span>(palettes);</a></code></pre></div>
+</section><section id="section-17" class="slide level2">
+<h2></h2>
+<h5 id="lectura-de-roi-y-dem">Lectura de ROI y DEM</h5>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">var roi =<span class="st"> </span><span class="kw">ee.Geometry.Polygon</span>(</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">        [[[<span class="op">-</span><span class="fl">70.55404536516585</span>, <span class="fl">-33.58428077462103</span>],</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">          [<span class="op">-</span><span class="fl">70.55404536516585</span>, <span class="fl">-33.86069653053302</span>],</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">          [<span class="op">-</span><span class="fl">69.85504023821272</span>, <span class="fl">-33.86069653053302</span>],</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">          [<span class="op">-</span><span class="fl">69.85504023821272</span>, <span class="fl">-33.58428077462103</span>]]], null, false);</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">var dem =<span class="st">  </span><span class="kw">ee.Image</span>(<span class="st">&quot;JAXA/ALOS/AW3D30_V1_1&quot;</span>)<span class="kw">.clip</span>(roi)</a></code></pre></div>
+</section><section id="section-18" class="slide level2">
+<h2></h2>
+<h5 id="slope">Slope</h5>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">var slope =<span class="st">  </span><span class="kw">ee.Terrain.slope</span> (dem);</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">Map.centerObject</span>(roi, <span class="dv">11</span>); <span class="op">/</span><span class="er">/</span><span class="st"> </span>Map center</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw">Map.addLayer</span>(slope, {min<span class="op">:</span><span class="st"> </span><span class="dv">0</span>, max<span class="op">:</span><span class="st"> </span><span class="dv">90</span>, palette<span class="op">:</span>palettes.cb.Greys[<span class="dv">9</span>]<span class="kw">.slice</span>(<span class="dv">2</span>)}, <span class="st">&#39;slope&#39;</span>);</a></code></pre></div>
+<p><img src="src/images/slope.png" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section><section id="section-19" class="slide level2">
+<h2></h2>
+<h5 id="dsm">DSM</h5>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">var DSM =<span class="st"> </span><span class="kw">dem.select</span>(<span class="st">&#39;AVE&#39;</span>);</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">Map.addLayer</span>(DSM, {min<span class="op">:</span><span class="st"> </span><span class="fl">-479.0</span>,max<span class="op">:</span><span class="st"> </span><span class="fl">8859.0</span>,palette<span class="op">:</span><span class="st"> </span>paleta2, opacity<span class="op">:</span><span class="fl">0.4</span>}, <span class="st">&quot;DSM&quot;</span>)</a></code></pre></div>
+<p><img src="src/images/dsm.png" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section><section id="section-20" class="slide level2">
+<h2></h2>
+<h5 id="aspect">Aspect</h5>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">var aspect =<span class="st">  </span><span class="kw">ee.Terrain.aspect</span> (dem);</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">Map.addLayer</span>(aspect, {min<span class="op">:</span><span class="st"> </span><span class="fl">0.0</span>, max<span class="op">:</span><span class="st"> </span><span class="fl">360.0</span>, palette<span class="op">:</span><span class="st"> </span>paleta1, opacity<span class="op">:</span><span class="fl">0.1</span>}, <span class="st">&quot;aspect&quot;</span>)</a></code></pre></div>
+<p><img src="src/images/aspect.png" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section><section id="section-21" class="slide level2">
+<h2></h2>
+<h5 id="flow-acumulation">Flow Acumulation</h5>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">var fa =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&#39;users/imerg/flow_acc_3s&#39;</span>)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">  <span class="kw">.filterBounds</span>(roi)</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3">  <span class="kw">.map</span>(<span class="cf">function</span>(image){return <span class="kw">image.clip</span>(roi)})</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">  <span class="kw">.mosaic</span>()</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="kw">Map.addLayer</span>(fa, flowAccumulationVis, <span class="st">&#39;FA&#39;</span>);</a></code></pre></div>
+<p><img src="src/images/flow_acc.png" style="display:block; border:none; margin:auto; width:60%"></img></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="02_class_sentinel_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="02_class_sentinel_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Display the page number of the current slide
+        slideNumber: false,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 1,
+        maxScale: 1,
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '02_class_sentinel_files/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+        ]
+      });
+    </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
