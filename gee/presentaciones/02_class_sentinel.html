@@ -532,7 +532,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section></section>
 <section><section id="clasificacion-supervisada" class="title-slide slide level1 center black" data-background="src/images/sentinel_class.png"><h1>Clasificación Supervisada</h1></section><section id="section-1" class="slide level2">
 <h2></h2>
-<h5 id="definicicion-de-variables-con-insumos-satelitales">Definicición de variables con insumos satelitales</h5>
+<h5 id="definicion-de-variables-con-insumos-satelitales">Definición de variables con insumos satelitales</h5>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">var composite =<span class="st"> </span><span class="kw">ee.ImageCollection</span>(<span class="st">&#39;COPERNICUS/S2&#39;</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">.filterDate</span>(<span class="st">&#39;2019-01-01&#39;</span>, <span class="st">&#39;2019-03-01&#39;</span>)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="kw">.filterMetadata</span> (<span class="st">&#39;CLOUDY_PIXEL_PERCENTAGE&#39;</span>, <span class="st">&#39;Less_Than&#39;</span>, <span class="dv">20</span>)</a>
@@ -590,7 +590,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">print</span>(all)</a></code></pre></div>
 </section><section id="section-5" class="slide level2">
 <h2></h2>
-<h4 id="visuliazacion-de-las-bandas">Visuliazación de las Bandas</h4>
+<h4 id="visualizacion-de-las-bandas">Visualización de las Bandas</h4>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">Map.addLayer</span>(all, {min<span class="op">:</span><span class="dv">0</span>, max<span class="op">:</span><span class="dv">1</span>, bands<span class="op">:</span>[<span class="st">&quot;ndvi&quot;</span>],</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">  palette<span class="op">:</span>[<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>]}, <span class="st">&quot;NDVI&quot;</span>);</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">  </a>
@@ -622,7 +622,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb6-12" data-line-number="12">training =<span class="st"> </span><span class="kw">training.filter</span>(<span class="kw">ee.Filter.gte</span>(<span class="st">&#39;random&#39;</span>, <span class="fl">0.1</span>)) <span class="op">/</span><span class="er">/</span><span class="st"> </span>mayor o igual a</a></code></pre></div>
 </section><section id="section-7" class="slide level2">
 <h2></h2>
-<h5 id="visualizar-los-resultados">Visualizar los Resultados</h5>
+<h5 id="visualizacion-de-resultados">Visualización de Resultados</h5>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">training.size</span>())</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">training.reduceColumns</span>(<span class="kw">ee.Reducer.frequencyHistogram</span>(), [<span class="st">&quot;class&quot;</span>]))</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"></a>
@@ -635,7 +635,6 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb7-10" data-line-number="10">  palette<span class="op">:</span>[<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;yellow&quot;</span>]}, <span class="st">&quot;prediccion&quot;</span>)</a></code></pre></div>
 </section><section id="section-8" class="slide level2 center black" data-background="src/images/sentinel_class.png">
 <h2></h2>
-<p><!-- Autor: Denis Berroeta Gonzalez CIT-UAI 2019--></p>
 </section></section>
 <section><section id="subir-archivo-shapefile" class="title-slide slide level1"><h1>Subir archivo ShapeFile</h1></section><section id="section-9" class="slide level2">
 <h2></h2>
@@ -647,7 +646,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p><img src="src/images/add_files.png" style="display:block; border:none; margin:auto; width:60%"></img></p>
 </section><section id="section-13" class="slide level2">
 <h2></h2>
-<h5 id="leer">Leer</h5>
+<h5 id="leer-archivo-shapefile">Leer Archivo Shapefile</h5>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">var glaciares =<span class="st"> </span><span class="kw">ee.FeatureCollection</span>(<span class="st">&quot;users/denisberroeta/Glaciares&quot;</span>);</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">Map.addLayer</span>(glaciares, {color<span class="op">:</span><span class="st"> &#39;#bdc9e1&#39;</span>});</a></code></pre></div>
 <p><img src="src/images/add_glaciares.png" style="display:block; border:none; margin:auto; width:60%"></img></p>
@@ -724,6 +723,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb15-4" data-line-number="4">  <span class="kw">.mosaic</span>()</a>
 <a class="sourceLine" id="cb15-5" data-line-number="5"><span class="kw">Map.addLayer</span>(fa, flowAccumulationVis, <span class="st">&#39;FA&#39;</span>);</a></code></pre></div>
 <p><img src="src/images/flow_acc.png" style="display:block; border:none; margin:auto; width:60%"></img></p>
+<p><!-- Autor: Denis Berroeta Gonzalez CIT-UAI 2019--></p>
 </section></section>
     </div>
   </div>
